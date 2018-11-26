@@ -40,7 +40,7 @@ int main()
 ```
 after running this, we get a output like this:  
 `Catching exception:bad_alloc`  
-this is definitely not what we expected, the clue is **POLYMOPHYSM**  
+this is definitely not what we expected, the clue is **POLYMORPHISM**  
 `bad_alloc` **IS** an `exception`, but `exception` **IS NOT** a `bad_alloc`, and we know `what()` is a virtual function
 that's why we got this output
 
