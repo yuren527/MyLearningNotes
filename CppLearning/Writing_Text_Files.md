@@ -1,5 +1,5 @@
 ## Example
-```
+```C++
 #include <iostream>
 #include <fstream>
 
