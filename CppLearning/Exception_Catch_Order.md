@@ -8,35 +8,31 @@ then we try to catch them, see the code below:
 using namespace std;
 void GoesWrong()
 {
-  bool error1Detected = true;
-  bool error2Detected = true;
+    bool error1Detected = true;
+    bool error2Detected = true;
   
-  if(error1Detected)
-  {
-    throw bad_alloc();
-  }
-  if(error2Detected)
-  {
-  	throw exception();
-  }
+    if(error1Detected)
+    {
+        throw bad_alloc();
+    }
+    if(error2Detected)
+    {
+  	    throw exception();
+    }
 }
 
-int main()
-{
-  try
-  {
-    GoesWrong();
-  }
-  catch(exception &e)
-  {
-    cout << "Cathing exception:" << e.what() << endl;
-  }
-  catch(bad_alloc &e)
-  {
-    cout << "Cathing bad_alloc:" << e.what() << endl;
-  }
+int main(){
+  	try{
+    	GoesWrong();
+  	}
+  	catch(exception &e){
+    	cout << "Cathing exception:" << e.what() << endl;
+  	}
+  	catch(bad_alloc &e){
+    	cout << "Cathing bad_alloc:" << e.what() << endl;
+  	}
   
-  return 0;
+  	return 0;
 }
 ```
 after running this, we get a output like this:  
