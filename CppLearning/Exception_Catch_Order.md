@@ -1,7 +1,7 @@
 ## Example
 If we throw two exceptions, one is `bad_alloc` and another is `exception`  
 then we try to catch them, see the code below:
-```
+```C++
 #include <iostream>
 #include <exception>
 
