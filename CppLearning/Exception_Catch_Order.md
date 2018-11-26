@@ -6,8 +6,7 @@ then we try to catch them, see the code below:
 #include <exception>
 
 using namespace std;
-void GoesWrong()
-{
+void GoesWrong(){
     bool error1Detected = true;
     bool error2Detected = true;
   
@@ -21,18 +20,22 @@ void GoesWrong()
     }
 }
 
-int main(){
-  	try{
-    	GoesWrong();
-  	}
-  	catch(exception &e){
-    	cout << "Cathing exception:" << e.what() << endl;
-  	}
-  	catch(bad_alloc &e){
-    	cout << "Cathing bad_alloc:" << e.what() << endl;
-  	}
-  
-  	return 0;
+int main()
+{
+    try
+    {
+        GoesWrong();
+    }
+    catch(exception &e)
+    {
+        cout << "Cathing exception:" << e.what() << endl;
+    }
+    catch(bad_alloc &e)
+    {
+        cout << "Cathing bad_alloc:" << e.what() << endl;
+    }
+	
+    return 0;
 }
 ```
 after running this, we get a output like this:  
