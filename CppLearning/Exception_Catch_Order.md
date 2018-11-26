@@ -16,7 +16,7 @@ void GoesWrong(){
     }
     if(error2Detected)
     {
-  	    throw exception();
+        throw exception();
     }
 }
 
