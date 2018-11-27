@@ -8,9 +8,9 @@
 #pragma pack(16)
 struct Person
 {
-	char name[32];
-	int age;
-	float height;
+    char name[32];
+    int age;
+    float height;
 };
 #pragma pack()
 ```
@@ -18,9 +18,9 @@ struct Person
 ```C++
 struct node
 {
-      char a;
-      int b;
-      short c;
+    char a;
+    int b;
+    short c;
 };
 ```
 默认以最大长度int类型4字节对齐。此时占用内存为12byte
@@ -34,9 +34,9 @@ struct node
 #pragma pack(2)
 struct node1
 {
-      char a;
-      char b;
-      int c;
+    char a;
+    char b;
+    int c;
 };
 #pragma pack()
 ```
@@ -44,12 +44,12 @@ struct node1
 ```C++
 struct node
 {
-     char a;
-     short b;
-     int c;
+    char a;
+    short b;
+    int c;
  
-     struct node *Last;
-     struct node *Next;
+    struct node *Last;
+    struct node *Next;
 };
 ```
 由于默认内存对齐字节为int型四个字节，故：a占用一个字节,偏移量为1，
