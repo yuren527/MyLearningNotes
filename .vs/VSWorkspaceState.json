@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CppLearning"
+    "\\CppLearning",
+    "\\CppLearning\\Examples",
+    "\\CppLearning\\Examples\\Example_0"
   ],
-  "SelectedNode": "\\CppLearning\\Exception_Catch_Order.md",
+  "SelectedNode": "\\CppLearning\\Examples\\Example_0",
   "PreviewInSolutionExplorer": false
 }
