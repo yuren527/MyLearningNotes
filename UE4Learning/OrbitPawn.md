@@ -8,7 +8,7 @@ This file shows how to make a orbiting camera pawn in UE4. Next time when a orbi
 #include "GameFramework/Pawn.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-#include "OBS_Pawn.generated.h"
+#include "AOrbitPawn.generated.h"
 
 UCLASS()
 class OBSPROJECT_API AOrbitPawn : public APawn
