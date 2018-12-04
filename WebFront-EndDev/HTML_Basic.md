@@ -7,4 +7,4 @@ The most common charset is `UTF-8` and `GB2312`(`GBK`)
 `GB2312`一个汉字2个字节  
 大多数浏览器默认使用`UTF-8`，因此如果文档与之不匹配，则可能出现乱码。
 # 常用标签
-See the html example code file [HTML_Basic.html](Examples/HTML_Basic.html)  
+See the html example code file [CommonMarkups.html](Examples/CommonMarkups.html)  
