@@ -1,4 +1,4 @@
-# Charset（字符集、编码类型）
+# **Charset（字符集、编码类型）**
 The most common charset is `UTF-8` and `GB2312`(`GBK`)
 > UTF-8 国际通用字库  
 > GB2312(GBK) 主要偏向中文
@@ -7,7 +7,7 @@ The most common charset is `UTF-8` and `GB2312`(`GBK`)
 `GB2312`一个汉字2个字节  
 大多数浏览器默认使用`UTF-8`，因此如果文档与之不匹配，则可能出现乱码。  
 <br />
-# 常用标签
+# **常用标签**
 See the html example code file [CommonMarkups.html](Examples/CommonMarkups.html)
 ## **文字样式**
 > **标题：**`<h1></h1>`......`<h6></h6>`  
@@ -63,6 +63,8 @@ See the html example code file [CommonMarkups.html](Examples/CommonMarkups.html)
 ```
 `targe`取值分为:   
 `_blank`新建窗口打开  
-`_self`当前窗口打开
+`_self`当前窗口打开  
+<br />
+
 # **表格**
 See the example code file [Tables.html](Examples/Tables.html)
