@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>表格</title>
+    </head>
+    <body>
+        <h1>表格基本样式</h1>
+        <table width="400" height="200" border="1" cellspacing="0" cellpadding = "30">
+            <tr>
+                <td>1</td><td>2</td><td>3</td><td>4</td>
+            </tr>
+
+            <tr>
+                <td>1</td><td>2</td><td>3</td><td>4</td>
+            </tr>
+
+            <tr>
+                <td>1</td><td>2</td><td>3</td><td>4</td>
+            </tr>
+        </table>
+
+        <h1>表格对齐</h1>
+        <!--align取值为left/middle/right，用于table时为整个表格在页面中的对齐
+        用于tr/td时为整行和单个单元格内容的对齐
+        valign为垂直方向对齐，不能用于整个表格的对齐，取值为top,middle,bottom-->
+        <table width="400" height="200" border="1" cellspacing="0" align="right" bordercolor="green">
+            <tr align="middle">
+                <td>1</td><td>2</td><td>3</td><td>4</td>
+            </tr>
+    
+            <tr>
+                <td align="middle">1</td><td>2</td><td>3</td><td>4</td>
+            </tr>
+    
+            <tr valign="top">
+                <td>1</td><td>2</td><td>3</td><td>4</td>
+            </tr>
+        </table>
+
+        <h1>合并单元格</h1>
+        <table width="400" height="300" border="1" cellspacing="0">
+            <tr align="middle">
+                <td colspan="3">1</td>
+                <!-- <td>2</td> -->
+                <!-- <td>3</td> -->
+                <td>4</td>
+            </tr>
+
+            <tr align="middle">
+                <td>1</td>
+                <td rowspan="3">2</td>
+                <td>3</td>
+                <td>4</td>
+            </tr>
+
+            <tr align="middle">
+                <td>1</td>
+                <!-- <td>2</td> -->
+                <td>3</td>
+                <td>4</td>
+            </tr>
+
+            <tr align="middle">
+                <td>1</td>
+                <!-- <td>2</td> -->
+                <td>3</td>
+                <td>4</td>
+            </tr>
+
+        </table>
+    </body>
+</html>
