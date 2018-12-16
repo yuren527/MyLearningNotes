@@ -68,4 +68,4 @@ b为short型，2字节，由于a偏移量1不是short型数据2字节的整数�
 - 原则二：在经过第一原则分析后，检查计算出的存储单元是否为所有元素中最宽的元素的长度的整数倍，是，则结束；若不是，则补齐为它的整数倍。
 ！
 
-See the [Example file](Reading_Writing_Binary_Files_Example.cpp)
+See the [Example file](Examples/Reading_Writing_Binary_Files_Example.cpp)
