@@ -1,6 +1,5 @@
-# Example -- Reading Writing Binary Files
-```C++
-#include "stdafx.h"
+//Example -- Reading Writing Binary Files
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -49,4 +48,3 @@ int main()
 	
     return 0;
 }
-```
