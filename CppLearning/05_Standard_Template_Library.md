@@ -43,3 +43,17 @@ This will be the test result
 > 7777  
 > 77778  
 > 7777
+# List
+Quite similar to `vector`  
+Also called `double-linked list`  
+**But there is some differences between them:**  
+- Element can be inserted in the middle of a `list` while it's restricted to insert element at the begin or the end in a `vector`  
+- We cannot use a index to access elements in a list, use `iterator` instead    
+- The data storage in `vector` is continuous while it is not in `list`  
+- Elements in `list` is actual nodes which has a pointer to the memory block of the previous data and a pointer to the next  
+
+**Delete Element:**  
+To delete element in a `list`, use:  
+`it = list.erase(it);`  
+Because it's unreliable to access iterator after calling `erase()`, the validation of iterator depends on the chance of whether the memory is reused. Notice that, this actually increased the iterator;  
+
