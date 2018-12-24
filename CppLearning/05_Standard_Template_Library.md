@@ -145,3 +145,24 @@ int main()
   
 # Set
 A set can only stores unique elements and **orders them**   
+
+# Stacks and queues
+Stack and queue are very similar.
+```C++
+class Test
+{
+	string name;
+	Test(string s) : name(s){}
+}
+int main()
+{
+	stack<Test> testStack;
+	testStack.push(Test("Mike"));
+	
+	return 0;
+}
+```
+If we do like above, a `Test` that we created when pushing into the stack will be destroyed.
+
+If want to iterate through the stack or queue, use a for loop and `pop()` one by one. Use references to reference to the elements if we dont need them to persist.
+
