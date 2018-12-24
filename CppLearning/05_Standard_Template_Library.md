@@ -152,15 +152,15 @@ Stack and queue are very similar.
 ```C++
 class Test
 {
-	string name;
-	Test(string s) : name(s){}
+    string name;
+    Test(string s) : name(s){}
 }
 int main()
 {
-	stack<Test> testStack;
-	testStack.push(Test("Mike"));
+    stack<Test> testStack;
+    testStack.push(Test("Mike"));
 	
-	return 0;
+    return 0;
 }
 ```
 If we do like above, a `Test` that we created when pushing into the stack will be destroyed.
