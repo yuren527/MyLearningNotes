@@ -8,14 +8,15 @@ A vector actually contains a internal array, we can initialize the size of the i
 > vector\<int\> test(20);  
     
 This initialize a internal array with the size of `20`  
+
 But, ***once we add new element to the vector that is beyond the original size, a new internal array with twice the original size is created, and it will copy the old elements.***   
-</br>
+
 So, we should know that the difference between `size()` and `capacity()`.One is the length of the vector and the other indicates the size of the internal array.   
-</br>
+
 **Some of the functions should be highlightened:**  
-`clear()` is to dicard all the elements in the vector, but do not change the size or capacity of the vector.  
-`resize()` means to give a new size of the vector.  
-`reserve()` means to give a new capacity of the internal array, which can only be increased.  
+- `clear()` is to dicard all the elements in the vector, but do not change the size or capacity of the vector.  
+- `resize()` means to give a new size of the vector.  
+- `reserve()` means to give a new capacity of the internal array, which can only be increased.  
 # Two-Dimensional Vectors
 **Example**
 ```C++
