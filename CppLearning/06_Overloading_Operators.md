@@ -52,6 +52,7 @@ This section shows how to overload operators in a complex number class, what we 
 - Overload copy constructor;
 - Overload assignment operator;
 - Overload left bit shift operator;
+- Overload plus operator;
 
 See example below:  
 
@@ -71,6 +72,8 @@ public:
 	Complex(const Complex &other);
 	
 	const Complex &operator=(const Complex &other);
+	Complex operator+(const Complex &c1, const Complex &c2);
+	Complex operator+(const Complex &c1, double d);
 	
 	double GetReal() const { return real;}
 	double GetImaginary() const { return imaginary;}
@@ -97,4 +100,13 @@ ostream &operator<<(ostream &out, const Complex &c){
 	out << "(" << c.real << "," << c.imaginary << ")";
 	return out;
 }
+
+Complex Complex::operator+(const Complex &c1, const Complex &c2){
+	return Complex(c1.GetReal() + c2.GetReal(), c1.GetImaginary() + c2.GetImaginary());
+}
+
+Complex Complex::operator+(const Complex &c1, double d){
+	return Complex(c1.GetReal() + d, c1.GetImaginary());
+}
 ```
+Beware that we cant do `c2 = 3.2 + c1;` using functions above, because the parameter order should not change, the left side of the operator is passing to the first parameter while the right side to the second, if needed, overload another function.
