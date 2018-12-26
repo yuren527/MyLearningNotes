@@ -38,3 +38,36 @@ int main(){
     return 0;
 }
 ```
+# Functor
+Example:
+```C++
+#include "stdafx.h"
+#include <iostream>
+using namespace std;
+
+struct Test {
+	virtual bool operator()(string &text) = 0;
+};
+
+struct MatchTest : public Test {
+	virtual bool operator()(string &text) {
+		return text == "lion";
+	}
+};
+
+void Check(string text, Test &test) {
+	if (test(text)) {
+		cout << "Matches" << endl;
+	}
+	else {
+		cout << "Not Match" << endl;
+	}
+}
+
+int main() {
+	MatchTest m;
+	Check("liond", m);
+	return 0;
+}
+```
+A functor is a struct or class that overloaded `operator()`, this operator can take any numbers of arguments, and can return any type;

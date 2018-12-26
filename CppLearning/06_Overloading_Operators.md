@@ -53,6 +53,7 @@ This section shows how to overload operators in a complex number class, what we 
 - Overload assignment operator;
 - Overload left bit shift operator;
 - Overload plus operator;
+- Overload dereference operator;
 
 See example below:  
 
@@ -63,20 +64,21 @@ using namespace std;
 
 class Complex{
 private:
-	double real;
-	double imaginary;
+    double real;
+    double imaginary;
 	
 public:
-	Complex(){}
-	Complex(double real, double imaginary) : real(real), imaginary(imaginary){}
-	Complex(const Complex &other);
+    Complex(){}
+    Complex(double real, double imaginary) : real(real), imaginary(imaginary){}
+    Complex(const Complex &other);
 	
-	const Complex &operator=(const Complex &other);
-	Complex operator+(const Complex &c1, const Complex &c2);
-	Complex operator+(const Complex &c1, double d);
+    const Complex &operator=(const Complex &other);
+    Complex operator+(const Complex &c1, const Complex &c2);
+    Complex operator+(const Complex &c1, double d);
+    Complex operator*() const;
 	
-	double GetReal() const { return real;}
-	double GetImaginary() const { return imaginary;}
+    double GetReal() const { return real;}
+    double GetImaginary() const { return imaginary;}
 }
 
 ostream &operator<<(ostream &out, const Complex &c);
@@ -86,27 +88,33 @@ ostream &operator<<(ostream &out, const Complex &c);
 #include "Complex.h"
 
 Complex::Complex(const Complex &other){
-	real = other.real;
-	imaginary = other.imaginary;
+    real = other.real;
+    imaginary = other.imaginary;
 }
 
 const Complex &Complex::operator=(const Complex &other){
-	real = other.real;
-	imaginary = other.imaginary;
-	return *this;
+    real = other.real;
+    imaginary = other.imaginary;
+    return *this;
 }
 
 ostream &operator<<(ostream &out, const Complex &c){
-	out << "(" << c.real << "," << c.imaginary << ")";
-	return out;
+    out << "(" << c.real << "," << c.imaginary << ")";
+    return out;
 }
 
 Complex Complex::operator+(const Complex &c1, const Complex &c2){
-	return Complex(c1.GetReal() + c2.GetReal(), c1.GetImaginary() + c2.GetImaginary());
+    return Complex(c1.GetReal() + c2.GetReal(), c1.GetImaginary() + c2.GetImaginary());
 }
 
 Complex Complex::operator+(const Complex &c1, double d){
-	return Complex(c1.GetReal() + d, c1.GetImaginary());
+    return Complex(c1.GetReal() + d, c1.GetImaginary());
+}
+
+Complex Complex::operator*() const{
+    return Complex(real, -imaginary);
 }
 ```
 Beware that we cant do `c2 = 3.2 + c1;` using functions above, because the parameter order should not change, the left side of the operator is passing to the first parameter while the right side to the second, if needed, overload another function.
+
+
