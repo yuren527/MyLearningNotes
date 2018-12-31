@@ -900,4 +900,5 @@ int main() {
 - If a class has a smart pointer as member variable, it should be initialized in constructor;
 - Smart pointers automatically deallocate memories when reach the end of the its scope;
 - Remember difference between these two type of pointers;
+- There is another smart pointer called `auto_ptr`, but it's deprecated, just to know if seeing one;
 
