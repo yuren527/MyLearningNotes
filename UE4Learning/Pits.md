@@ -28,3 +28,7 @@ struct FStructName
      return FCrc::MemCrc32(&b, sizeof(FStructName));
  }
 ```
+
+# FUCKING big PIT!!
+类的静态成员变量，必须在类外进行初始化，初始化的类型前不加`static`关键字;
+不初始化的情况下，如果用其他成员变量进行访问，就会出现`unresolved external symbol`，根本找不到原因，然而奇怪的是，函数的本地变量却可以进行访问，但如果再把此本地变量赋予成员变量，便又出现错误；
