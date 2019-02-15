@@ -276,7 +276,7 @@ The `{}` can nearly do any thing when initializing in C++11;
 When using this way to initialize a class or a struct, `{}` can only be used for public members;
 
 In C++11, vector and other collections can be initialized using `{}`;
-# Initializer_list
+# Initializer-list
 ```C++
 #include "stdafx.h"
 #include <string>
