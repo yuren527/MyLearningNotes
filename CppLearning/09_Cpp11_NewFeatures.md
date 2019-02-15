@@ -1,20 +1,20 @@
 # What's in this note
 - [Auto decltype and typeid](#Auto-decltype-and-typeid)
-- [Nested template classes]
-- [Ring buffer class iterable]
-- [Cpp98 and Cpp11 Initialization]
-- [Initializer_list]
-- [default and delete]
-- [Lumbda Expression]
-- [Standard function type]
-- [Delegating constructor]
-- [Copy elision]
-- [Constructor and memory]
-- [LValue and RValue]
-- [Casting]
-- [Perfect forwarding]
-- [Binding]
-- [Unique pointer and shared pointer]
+- [Nested template classes](#Nested-template-classes)
+- [Ring buffer class iterable](#Ring-buffer-class-iterable)
+- [Cpp98 and Cpp11 Initialization](#Cpp98-and-Cpp11-Initialization)
+- [Initializer\-list](#Initializer-list)
+- [default and delete](#default-and-delete)
+- [Lumbda Expression](#Lumbda-Expression)
+- [Standard function type](#Standard-function-type)
+- [Delegating constructor](#Delegating-constructor)
+- [Copy elision](#Copy-elision)
+- [Constructor and memory](#Constructor-and-memory)
+- [LValue and RValue](#LValue-and-RValue)
+- [Casting](#Casting)
+- [Perfect forwarding](#Perfect-forwarding)
+- [Binding](#Binding)
+- [Unique pointer and shared pointer](#Unique-pointer-and-shared-pointer)
 # Auto decltype and typeid
 Example:
 ```C++
