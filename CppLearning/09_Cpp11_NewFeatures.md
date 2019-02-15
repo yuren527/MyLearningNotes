@@ -1,5 +1,5 @@
 # What's in this note
-- [Auto decltype and typeid]
+- [Auto decltype and typeid](#Auto-decltype-and-typeid)
 - [Nested template classes]
 - [Ring buffer class iterable]
 - [Cpp98 and Cpp11 Initialization]
