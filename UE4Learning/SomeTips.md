@@ -23,3 +23,15 @@ BuildingNodeGroup::BuildingNodeGroup(const FString & owner, FTransform trans) : 
 Need to use initializer-list, `groupID()` in the init-list can initialize the variable with a temporary nameless object which calls the default constructor;
 
 For more information, see the [Value Initialization](https://en.cppreference.com/w/cpp/language/value_initialization);
+# Create a basic shape in actor constructor
+- First, include `ConstructorHelpers.h`;  
+- Second, use `static ConstructorHelpers::FObjectFinder<UStaticMesh>` to load the mesh;
+
+See example below:
+```C++
+this->SphereMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SphereMesh"));
+this->SphereMesh->AttachTo(GetRootComponent());
+
+static ConstructorHelpers::FObjectFinder<UStaticMesh>SphereMeshAsset(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
+this->SphereMesh->SetStaticMesh(SphereMeshAsset.Object);
+```
