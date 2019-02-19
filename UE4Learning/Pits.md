@@ -30,5 +30,9 @@ struct FStructName
 ```
 
 # FUCKING big PIT!!
-ÀàµÄ¾²Ì¬³ÉÔ±±äÁ¿£¬±ØĞëÔÚÀàÍâ½øĞĞ³õÊ¼»¯£¬³õÊ¼»¯µÄÀàĞÍÇ°²»¼Ó`static`¹Ø¼ü×Ö;
-²»³õÊ¼»¯µÄÇé¿öÏÂ£¬Èç¹ûÓÃÆäËû³ÉÔ±±äÁ¿½øĞĞ·ÃÎÊ£¬¾Í»á³öÏÖ`unresolved external symbol`£¬¸ù±¾ÕÒ²»µ½Ô­Òò£¬È»¶øÆæ¹ÖµÄÊÇ£¬º¯ÊıµÄ±¾µØ±äÁ¿È´¿ÉÒÔ½øĞĞ·ÃÎÊ£¬µ«Èç¹ûÔÙ°Ñ´Ë±¾µØ±äÁ¿¸³Óè³ÉÔ±±äÁ¿£¬±ãÓÖ³öÏÖ´íÎó£»
+ç±»çš„é™æ€æˆå‘˜å˜é‡ï¼Œå¿…é¡»åœ¨ç±»å¤–è¿›è¡Œåˆå§‹åŒ–ï¼Œåˆå§‹åŒ–çš„ç±»å‹å‰ä¸åŠ `static`å…³é”®å­—;
+ä¸åˆå§‹åŒ–çš„æƒ…å†µä¸‹ï¼Œå¦‚æœç”¨å…¶ä»–æˆå‘˜å˜é‡è¿›è¡Œè®¿é—®ï¼Œå°±ä¼šå‡ºç°`unresolved external symbol`ï¼Œæ ¹æœ¬æ‰¾ä¸åˆ°åŸå› ï¼Œç„¶è€Œå¥‡æ€ªçš„æ˜¯ï¼Œå‡½æ•°çš„æœ¬åœ°å˜é‡å´å¯ä»¥è¿›è¡Œè®¿é—®ï¼Œä½†å¦‚æœå†æŠŠæ­¤æœ¬åœ°å˜é‡èµ‹äºˆæˆå‘˜å˜é‡ï¼Œä¾¿åˆå‡ºç°é”™è¯¯ï¼›
+# Some pits in Replication
+Something in Replication worth remembering:
+- Replicated variables should be following `UPROPERTY(Replicated)`, **Replication only go from server to client**, so it is not recommended to modify replicated variables locally on a client, modification should always be executed on server side;
+- Because replication only go from server to client, so functions in `UPROPERTY(ReplicatedUsing=func)` will only execute on client; maybe it can be called manually, not tested yet; It is good to name the On-Rep function with `OnRep_` prefix, and must be marked as `UFUNCTION()`;
