@@ -1,4 +1,4 @@
-# A very simple starter example
+# Introduction to entity components
 > .h
 ```C++
 #include <CryEntitySystem/IEntityComponent>
