@@ -36,3 +36,7 @@ struct FStructName
 Something in Replication worth remembering:
 - Replicated variables should be following `UPROPERTY(Replicated)`, **Replication only go from server to client**, so it is not recommended to modify replicated variables locally on a client, modification should always be executed on server side;
 - Because replication only go from server to client, so functions in `UPROPERTY(ReplicatedUsing=func)` will only execute on client; maybe it can be called manually, not tested yet; It is good to name the On-Rep function with `OnRep_` prefix, and must be marked as `UFUNCTION()`;
+# F**king rubbish interface
+UnrealEngine `UCLASS` just don't support multi-inheritance, it provides `UINTERFACE` and `IINTERFACE`	instead if multi-inheritance;
+
+Don't waste time to get interface of UnrealEngine to work, especially associating RPC functions, it's so rubbish, don't support replication functions, and get rid of your thought to use any multi-inheritance feature in UnrealEngine, use `ActorComponent` instead;
