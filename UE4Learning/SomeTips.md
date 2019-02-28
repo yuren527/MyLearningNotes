@@ -35,3 +35,5 @@ this->SphereMesh->AttachTo(GetRootComponent());
 static ConstructorHelpers::FObjectFinder<UStaticMesh>SphereMeshAsset(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 this->SphereMesh->SetStaticMesh(SphereMeshAsset.Object);
 ```
+# Install Code Plugin to Source-built Engine
+In order to be able to use a code plugin from the Marketplace in an Engine that you built from source code, all you need to do is copy the plugin folder from the `Engine\Plugins\Marketplace` folder in your binary engine installation to the same folder in your source engine installation (you may need to create the Marketplace folder). You'll need to generate project files and build the project again, but you will then be able to open the project successfully. Once your project is open, you will probably see some errors in any Blueprints using nodes from the plugin. Just refresh these nodes and build the Blueprint again and the errors should disappear.
