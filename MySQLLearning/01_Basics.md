@@ -81,5 +81,12 @@ If we need some united key, such as `GUID`, we can mark multiple columns as `PRI
 Each key of a united key can be duplicate, as long as its union is unique; for example: 1-2 can exist with 1-1, but another 1-2 is not allowed;
 ### UNIQUE
 `UNIQUE` values can be `NULL`, but if it's not `NULL`, it has to be unique;  
+## Where, NOT, and, or
+> select * from <table_name\> where <condition\>;    
 
+Above means return datas when data meets condition following `where`, use `and`, `or` to form multiple conditions;  
+Not means when condition not met:  
+> select * from <table_name\> where NOT <condition\>  
+
+condition syntax: `first_name="John"`;
 
