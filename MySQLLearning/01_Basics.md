@@ -28,3 +28,37 @@ Other table commands:
 > show columns from <table_name\>;  
 > desc <table_name>;  
 > drop table<table_name\>;
+## Insert data to table
+```MySQL
+INSERT INTO person(name, phone, age)
+VALUES("Zhang san", "12345", 20),
+      ("Li si", "67890", 30);
+```
+## Select
+Select is a very important keyword in MySQL;
+Basic use syntax:
+> select * from <table_name\>; //print all columns of table;  
+> select <column_name\> from <table_name\>; //print a column of table;  
+> select <column1_name\>, <column2_name\> from <table_name\>; //print two columns of table;
+## NULL and NOT NULL and DEFAULT
+If create a table like this:
+> create table person1(name varchar(20, phone varchar(20), age int);  
+> desc person1;  
+
+we will get output:  
+```
+mysql> desc person1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(20) | YES  |     | NULL    |       |
+| phone | varchar(20) | YES  |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+```
+From above we can see, as default, values can be `NULL`, and the default value is `NULL`;
+If we want a value cannot be NULL, and set its default value to other value:
+> create table person2(name varchar(20) NOT NULL DEFAULT "no", phone varchar(20), age int);  
+
+If we set a column to `NOT NULL`, then we have to set a value to it when we insert a new row, other than leave it blank, or change its default value to something else;
