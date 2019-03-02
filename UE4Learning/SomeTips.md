@@ -37,3 +37,13 @@ this->SphereMesh->SetStaticMesh(SphereMeshAsset.Object);
 ```
 # Install Code Plugin to Source-built Engine
 In order to be able to use a code plugin from the Marketplace in an Engine that you built from source code, all you need to do is copy the plugin folder from the `Engine\Plugins\Marketplace` folder in your binary engine installation to the same folder in your source engine installation (you may need to create the Marketplace folder). You'll need to generate project files and build the project again, but you will then be able to open the project successfully. Once your project is open, you will probably see some errors in any Blueprints using nodes from the plugin. Just refresh these nodes and build the Blueprint again and the errors should disappear.
+# Convert between FString and std::string
+```C++
+FString UE4Str = "UE4 C++"; 
+
+//FString to std::string
+std::string cstr(TCHAR_TO_UTF8(*UE4Str));
+
+//std::string to FString
+ClientMessage(FString(cstr.c_str()));
+```
