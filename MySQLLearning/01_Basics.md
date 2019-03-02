@@ -40,6 +40,9 @@ Basic use syntax:
 > select * from <table_name\>; //print all columns of table;  
 > select <column_name\> from <table_name\>; //print a column of table;  
 > select <column1_name\>, <column2_name\> from <table_name\>; //print two columns of table;
+
+We can use `as` to specify a "nick name" for the columns:
+> select <column_name\> as <short_name\> from <table_name\>;
 ## NULL and NOT NULL and DEFAULT
 If create a table like this:
 > create table person1(name varchar(20, phone varchar(20), age int);  
