@@ -62,3 +62,21 @@ If we want a value cannot be NULL, and set its default value to other value:
 > create table person2(name varchar(20) NOT NULL DEFAULT "no", phone varchar(20), age int);  
 
 If we set a column to `NOT NULL`, then we have to set a value to it when we insert a new row, other than leave it blank, or change its default value to something else;
+## PRIMARY KEY, AUTO_INCREMENT and UNIQUE
+### PRIMARY KEY
+If set a column as `PRIMARY KEY` as below, then its value cannot be `NULL`:
+> create table person(id INT PRIMARY KEY, name VARCHAR(20));  
+### AUTO_INCREMENT
+but if we don't want to give a specific value every time we insert, we can mark `id` as `AUTO_INCREMENT`;
+> create table person(id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(20));
+
+then it will increment the value of `id` when we leave it blank when inserting data; **But, `AUTO_INCREMENT` must be used with `PRIMARY KEY` or `UNIQUE` key**;  
+### United key
+If we need some united key, such as `GUID`, we can mark multiple columns as `PRIMARY KEY`, use symtax as below:
+> create table person(id1 INT, id2 INT, name VARCHAR(20), PRIMARY KEY(id1, id2));  
+
+Each key of a united key can be duplicate, as long as its union is unique; for example: 1-2 can exist with 1-1, but another 1-2 is not allowed;
+### UNIQUE
+`UNIQUE` values can be `NULL`, but if it's not `NULL`, it has to be unique;  
+
+
