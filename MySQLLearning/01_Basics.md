@@ -85,8 +85,22 @@ Each key of a united key can be duplicate, as long as its union is unique; for e
 > select * from <table_name\> where <condition\>;    
 
 Above means return datas when data meets condition following `where`, use `and`, `or` to form multiple conditions;  
-Not means when condition not met:  
+`Not` means when condition not met:  
 > select * from <table_name\> where NOT <condition\>  
 
 condition syntax: `first_name="John"`;
+## Update data through UPDATE
+> update emplyee set salary=20000, note="updated" where title="Software Architect";  
+
+Change salary to 20000, and set note to "updated", when title of the data is "Software Architect"; 
+**Note: use `set` without `where` is dangerous, it will change all the datas;**
+## DELETE and IF NOT EXISTS
+Like `UPDATE`, we can use `DELETE` to delete datas from a table, and also dangerous when using it without `where` condition as that will delete all the datas in the table;  
+> DELETE * from <table_name\> WHERE <condition\>  
+
+If want to check for existance or duplicate name of a table before creating one, use `IF NOT EXISTS` after `CREATE TABLE`:
+> CREATE TABLE IF NOT EXISTS emplyees(...);
+## SOURCE <path\>
+Import executions from file:
+> SOURCE /Users/PengXiao/test.sql;
 
