@@ -95,8 +95,8 @@ condition syntax: `first_name="John"`;
 Change salary to 20000, and set note to "updated", when title of the data is "Software Architect"; 
 **Note: use `set` without `where` is dangerous, it will change all the datas;**
 ## DELETE and IF NOT EXISTS
-Like `UPDATE`, we can use `DELETE` to delete datas from a table, and also dangerous when using it without `where` condition as that will delete all the datas in the table;  
-> DELETE * from <table_name\> WHERE <condition\>  
+We can use `DELETE` to delete datas from a table, and also dangerous when using it without `where` condition as that will delete all the datas in the table;  
+> DELETE from <table_name\> WHERE <condition\>  
 
 If want to check for existance or duplicate name of a table before creating one, use `IF NOT EXISTS` after `CREATE TABLE`:
 > CREATE TABLE IF NOT EXISTS emplyees(...);
