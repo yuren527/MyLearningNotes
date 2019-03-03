@@ -7,6 +7,7 @@
 - [UPDATE SET](#UPDATE-SET)  
 - [DELETE and IF NOT EXISTS](#DELETE-and-IF-NOT-EXISTS)  
 - [MySQL string functions](#MySQL-string-functions)
+- [Refining SELECT](#Refining-SELECT)
 
 # Database and Table level commands
 **Database level commands**
@@ -37,6 +38,8 @@ VALUES("Zhang san", "12345", 20),
       ("Li si", "67890", 30);
 ```
 # Tips
+**MySQL language is case-insensitive**, there is a way to make it case-sensitive, google it if nessessary;
+
 **Delimister**  
 `;` is delimiter, which is used to excute commands, without it the command won't execute; We can use `delimister` to modify the symbol of delimister:  
 > delimister && //no former delimister
@@ -143,5 +146,32 @@ Reverse the string;
 Return the length of a string;  
 
 **UPPER** and **LOWER**  
-Turn the string into upper or lower case, has no effect on int and symbols;  
+Turn the string into upper or lower case, has no effect on int and symbols; 
+# Refining SELECT
+**ORDER BY**  
+To order selection by column(s); *Use after `where` syntax*;  
+`select title, title_year, gross, imdb_score from movie where director_name="peter Jackson" order by gross desc limit 1;`   
+`desc` stands for descendant, order from biger to smaller;  
+
+ column name can be replaced by index of the column names in the selection:  
+ `select title, title_year, gross, imdb_score from movie where director_name="peter Jackson" order by 3 desc limit 1;` `3` stands for `gross` as it's the third in the selections;     
+
+`order by 1, 2` and `order by title, title_name` means use multiple columns to order, 1 as primary while 2 as secondary;  
+
+**LIMIT**  
+***Use above example***  
+To list certain number of selections;  
+`LIMIT 1, 2` means list 2 datas starting from the second one(index starts from 0, so 1 is actually the second);  
+
+**LIKE**  
+`where director_name like "%C%"`  
+condition that any director_name has a "C" in it;
+- `"C%"` means starts with "C" followed by any string of any length;  
+- `"%C%"` means any string of any length that contains a "C";  
+- `"_C%"` "_" means this position is one and only one letter that don't know what is it;   
+- `"____"` (four "_") means this is a string which has four letters;
+- **CONCLUSION** "\_" and "%" both means something arbitary, but "\_" is one letter while "%" is a string(of any length);  
+
+If a string contains "%" or "\_" that makes it ambiguous when using `like` syntax, then andd a "\\" before it to translate the symbol, just the same with md language;
+
 
