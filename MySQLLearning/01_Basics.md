@@ -1,12 +1,12 @@
-- [Database and Table level commands](# Database and Table level commands)  
-- [Tips](# Tips)  
-- [Select](# Select)  
-- [NULL and NOT NULL and DEFAULT](# NULL and NOT NULL and DEFAULT)  
-- [PRIMARY KEY, AUTO_INCREMENT and UNIQUE](# PRIMARY KEY, AUTO_INCREMENT and UNIQUE)  
-- [WHERE, NOT, AND, OR](# WHERE, NOT, AND, OR)  
-- [UPDATE, SET](# UPDATE, SET)  
-- [DELETE and IF NOT EXISTS](# DELETE and IF NOT EXISTS)  
-- [MySQL string functions](#MySQL string functions)
+- [Database and Table level commands](#Database-and-Table-level-commands)  
+- [Tips](#Tips)  
+- [Select](#Select)  
+- [NULL and NOT NULL and DEFAULT](#NULL-and-NOT-NULL-and-DEFAULT)  
+- [PRIMARY KEY and AUTO_INCREMENT and UNIQUE](#PRIMARY-KEY-and-AUTO_INCREMENT-and-UNIQUE)  
+- [WHERE NOT AND OR](#WHERE-NOT-AND-OR)  
+- [UPDATE SET](#UPDATE-SET)  
+- [DELETE and IF NOT EXISTS](#DELETE-and-IF-NOT-EXISTS)  
+- [MySQL string functions](#MySQL-string-functions)
 
 # Database and Table level commands
 **Database level commands**
@@ -83,7 +83,7 @@ If we want a value cannot be NULL, and set its default value to other value:
 > create table person2(name varchar(20) NOT NULL DEFAULT "no", phone varchar(20), age int);  
 
 If we set a column to `NOT NULL`, then we have to set a value to it when we insert a new row, other than leave it blank, or change its default value to something else;
-# PRIMARY KEY, AUTO_INCREMENT and UNIQUE
+# PRIMARY KEY and AUTO_INCREMENT and UNIQUE
 **PRIMARY KEY**  
 If set a column as `PRIMARY KEY` as below, then its value cannot be `NULL`:
 > create table person(id INT PRIMARY KEY, name VARCHAR(20));  
@@ -103,7 +103,7 @@ Each key of a united key can be duplicate, as long as its union is unique; for e
 **UNIQUE**   
  	
 `UNIQUE` values can be `NULL`, but if it's not `NULL`, it has to be unique;  
-# WHERE, NOT, AND, OR
+# WHERE NOT AND OR
 > select * from <table_name\> where <condition\>;    
 
 Above means return datas when data meets condition following `where`, use `and`, `or` to form multiple conditions;  
@@ -111,7 +111,7 @@ Above means return datas when data meets condition following `where`, use `and`,
 > select * from <table_name\> where NOT <condition\>  
 
 condition syntax: `first_name="John"`;
-# UPDATE, SET
+# UPDATE SET
 > update emplyee set salary=20000, note="updated" where title="Software Architect";  
 
 Change salary to 20000, and set note to "updated", when title of the data is "Software Architect"; 
