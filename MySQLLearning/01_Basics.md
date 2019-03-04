@@ -1,6 +1,6 @@
 - [Database and Table level commands](#Database-and-Table-level-commands)  
 - [Tips](#Tips)  
-- [Select](#Select)  
+- [SELECT](#SELECT)  
 - [NULL and NOT NULL and DEFAULT](#NULL-and-NOT-NULL-and-DEFAULT)  
 - [PRIMARY KEY and AUTO_INCREMENT and UNIQUE](#PRIMARY-KEY-and-AUTO_INCREMENT-and-UNIQUE)  
 - [WHERE NOT AND OR](#WHERE-NOT-AND-OR)  
@@ -8,6 +8,7 @@
 - [DELETE and IF NOT EXISTS](#DELETE-and-IF-NOT-EXISTS)  
 - [MySQL string functions](#MySQL-string-functions)
 - [Refining SELECT](#Refining-SELECT)
+- [GROUP BY and Aggregation](#GROUP-BY-and-Aggregation)
 
 # Database and Table level commands
 **Database level commands**
@@ -55,8 +56,8 @@ For more information, check the MySQL docs: [MySQL data type reference](https://
 **SOURCE <path\>**  
 Import executions from file:
 > SOURCE /Users/PengXiao/test.sql;
-# Select
-Select is a very important keyword in MySQL;
+# SELECT
+`SELECT` is a very important keyword in MySQL;
 Basic use syntax:
 > select * from <table_name\>; //print all columns of table;  
 > select <column_name\> from <table_name\>; //print a column of table;  
@@ -173,5 +174,45 @@ condition that any director_name has a "C" in it;
 - **CONCLUSION** "\_" and "%" both means something arbitary, but "\_" is one letter while "%" is a string(of any length);  
 
 If a string contains "%" or "\_" that makes it ambiguous when using `like` syntax, then andd a "\\" before it to translate the symbol, just the same with md language;
+# GROUP BY and Aggregation
+**MAX MIN SUM AVG**  
+syntax: 
+> MAX(salary)  
+> MIN(salary)  
+> SUM(salary)  
+> AVG(salary)  
 
+*MAX and MIN* can be used for numeric, string and date type, while *SUM and AVG* can only be used for numeric and date;
 
+**COUNT**  
+return the number of a column;
+
+**DISTINCT**  
+return the number of unique data of a column;
+
+**GROUP BY**  
+Use to group datas, syntax:  
+> mysql> select title, count(*), sum(salary), avg(salary) from employee group by title order by sum(salary);   
+ 
+outputs:  
+```
++------------------------+----------+-------------+-------------------+
+| title                  | count(*) | sum(salary) | avg(salary)       |
++------------------------+----------+-------------+-------------------+
+| Test Engineer          |        1 |        6500 |              6500 |
+| Project Manager        |        1 |        8500 |              8500 |
+| Database Administrator |        2 |       12800 |              6400 |
+| Software Architect     |        2 |       15200 |              7600 |
+| Software Engineer      |        3 |       15350 | 5116.666666666667 |
++------------------------+----------+-------------+-------------------+
+```
+**HAVING**
+`where` can only used to filter raw datas;
+> select * from employee group by title where title="software engineer";  
+> select * from employee where title = "software engineer" group by title;  
+
+The first line will report a syntax error while the second line execute successfully;  
+That means we can only filter datas before group them;  
+
+If we want to filter datas after group, use `HAVING`:  
+> select * from employee group by title having title="software engineer";
