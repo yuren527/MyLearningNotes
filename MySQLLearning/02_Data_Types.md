@@ -192,3 +192,15 @@ These two types are rarely used; The most different between BINARY-VARBINARY and
 |5|101|one, three|
 |6|110|two, three|
 |7|111|one, two, three|  
+
+# CONVERT()
+Convert something into another type:  
+```
+mysql> SELECT CONVERT(7.4323453453453453, DECIMAL(2, 1));
++--------------------------------------------+
+| CONVERT(7.4323453453453453, DECIMAL(2, 1)) |
++--------------------------------------------+
+|                                        7.4 |
++--------------------------------------------+
+1 row in set (0.00 sec)
+```

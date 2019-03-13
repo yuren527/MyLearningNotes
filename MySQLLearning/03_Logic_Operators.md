@@ -8,7 +8,7 @@
 
 # CASE statement
 Example 1:  
-```MySQL
+```sql
 SELECT *,
 	case
 		when salary>=7000 then "high"
@@ -18,7 +18,7 @@ SELECT *,
 from employee order by salary desc;
 ```
 Example 2:
-```MySQL
+```sql
 SELECT *,
 	case
 		when title like "%Engineer%" then 1

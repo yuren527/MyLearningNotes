@@ -25,7 +25,7 @@
 > drop table<table_name\>;
 
 **Create table**
-```MySQL
+```sql
 CREATE TABLE person(
 name VARCHAR[20],
 phone VARCHAR[20],
@@ -33,7 +33,7 @@ age INT
 );
 ```
 **Insert data to table**
-```MySQL
+```sql
 INSERT INTO person(name, phone, age)
 VALUES("Zhang san", "12345", 20),
       ("Li si", "67890", 30);
@@ -56,6 +56,19 @@ For more information, check the MySQL docs: [MySQL data type reference](https://
 **SOURCE <path\>**  
 Import executions from file:
 > SOURCE /Users/PengXiao/test.sql;
+
+# Encoding
+**Create default utf8 datebase**  
+> CREATE DATABASE dbname DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+**Alter existing database to utf8**
+> ALTER DATABASE dbname CHARSET utf8 COLLATE utf8_general_ci;
+
+**Alter existing table to utf8**
+> ALTER TABLE tablename CONVERT TO CHARACTER SET utf8;
+
+changing database encoding charset can only affect newly created tables, alter existing table using the third command;  
+
 # SELECT
 `SELECT` is a very important keyword in MySQL;
 Basic use syntax:
