@@ -103,15 +103,16 @@ Auto update and default time function of TIMESTAMP:
 > mysql> create table time_test(a DATETIME, b TIMESTAMP default now() on update now());
 > Query OK, 0 rows affected (0.02 sec)  
 
-Outputs:  
-> +-------+-----------+------+-----+-------------------+-----------------------------------------------+  
-> | Field | Type      | Null | Key | Default           | Extra                                         |  
-> +-------+-----------+------+-----+-------------------+-----------------------------------------------+  
-> | a     | datetime  | YES  |     | NULL              |                                               |  
-> | b     | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |  
-> +-------+-----------+------+-----+-------------------+-----------------------------------------------+  
-> 2 rows in set (0.00 sec)  
-
+Outputs: 
+```
++-------+-----------+------+-----+-------------------+-----------------------------------------------+  
+| Field | Type      | Null | Key | Default           | Extra                                         |  
++-------+-----------+------+-----+-------------------+-----------------------------------------------+  
+| a     | datetime  | YES  |     | NULL              |                                               |  
+| b     | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |  
++-------+-----------+------+-----+-------------------+-----------------------------------------------+  
+2 rows in set (0.00 sec)  
+```
 So ,if we want anything automatically changes when data changed, use `ON UPDATE`;  
 `NOW()` can be used to get current system time;  
 
