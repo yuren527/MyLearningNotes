@@ -16,7 +16,7 @@ BIT: *One byte is 8 bit*
 **Integer type value range and storage erquired**  
 
 |Type|Storage(Bytes)|Value Range Signed|Value Range Unsigned|  
-|---|---|  
+|---|---|---|---|  
 |TINYINT|1|-128~127|0~255|
 |SMALLINT|2|-32768~32767|0~65535|
 |MEDIUMINT|3|-8388608~8388607|0~16777215|
@@ -104,12 +104,12 @@ Auto update and default time function of TIMESTAMP:
 > Query OK, 0 rows affected (0.02 sec)  
 
 Outputs:  
-> +-------+-----------+------+-----+-------------------+-----------------------------------------------+
-> | Field | Type      | Null | Key | Default           | Extra                                         |
-> +-------+-----------+------+-----+-------------------+-----------------------------------------------+
-> | a     | datetime  | YES  |     | NULL              |                                               |
-> | b     | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
-> +-------+-----------+------+-----+-------------------+-----------------------------------------------+
+> +-------+-----------+------+-----+-------------------+-----------------------------------------------+  
+> | Field | Type      | Null | Key | Default           | Extra                                         |  
+> +-------+-----------+------+-----+-------------------+-----------------------------------------------+  
+> | a     | datetime  | YES  |     | NULL              |                                               |  
+> | b     | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |  
+> +-------+-----------+------+-----+-------------------+-----------------------------------------------+  
 > 2 rows in set (0.00 sec)  
 
 So ,if we want anything automatically changes when data changed, use `ON UPDATE`;  
