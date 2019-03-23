@@ -1,3 +1,4 @@
+- [Concepts](#Concepts)
 - [Database and Table level commands](#Database-and-Table-level-commands)  
 - [Tips](#Tips)  
 - [SELECT](#SELECT)  
@@ -9,6 +10,14 @@
 - [MySQL string functions](#MySQL-string-functions)
 - [Refining SELECT](#Refining-SELECT)
 - [GROUP BY and Aggregation](#GROUP-BY-and-Aggregation)
+- [Help](#Help)
+- [Configuration Commands](#Configuration-Commands)
+# Concepts
+- Database is collections of datas, DBMS is the interface to interact with database, but most of time, we call the constitution "Database";
+- SQL stands for "Structured Query Language", while MySQL means one branch of database, which is constituted by database(data collection) and DBMS; Many databases uses SQL;
+- What differs databases using SQL is the features they provide, such as size of downloading files, security, speed and so on, NOT the language they use, they all use SQL;
+- When we make apps, our apps talk to the DBMS, then the DBMS talk to the actual database;
+
 
 # Database and Table level commands
 **Database level commands**
@@ -21,7 +30,7 @@
 **Table level commands**
 > show tables;  
 > show columns from <table_name\>;  
-> desc <table_name>;  
+> desc <table_name>;  //SHOW COLUMNS FROM <tablename\> also works
 > drop table<table_name\>;
 
 **Create table**
@@ -229,3 +238,25 @@ That means we can only filter datas before group them;
 
 If we want to filter datas after group, use `HAVING`:  
 > select * from employee group by title having title="software engineer";
+
+# Help
+- Use `help;` to show command list;
+- Use `help contents` to show documents;
+- Type `help <item>` to show help of a category;
+
+# Configuration Commands
+>show engines --Display database engines that MySQL supports
+
+`InnoDB` is newer and better engine currently, so though we can change the engine used by a table, but most of time we won't want it; Also, we can specify different engines for table by table, but it's ussually useless, because it's commonly to use same engine for tables in a database; 
+>create table users(name varchar(50)) engine=MYISAM --To specify an engine for a table  
+>set default_storage_engine=MYISAM --Change the default engine
+
+>show table status --Display the engines used by tables
+
+Change SQL Modes:
+>select @@GLOABL.SQL_MODE, @@SESSION.SQL_MODE; --Display modes  
+
+Safe_Updates:
+>select @@SESSION.SQL_SAFE_UPDATES --Display whether it's allowed to use delete from <tablename\> without where or something similar to delete all the datas from a table;  
+>set SQL_SAFE_UPDATES=0 --turn off safe-updates mode, to delete all datas from a table using delete;  
+>
