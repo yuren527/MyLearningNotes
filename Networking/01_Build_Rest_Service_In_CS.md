@@ -1,7 +1,22 @@
+# Content #
+- [Content](#content)
+- [Preparing Development](#preparing-development)
+- [Add a Controller](#add-a-controller)
+- [Create a Model](#create-a-model)
+- [Create a Persistence Class](#create-a-persistence-class)
+- [Finish the Code](#finish-the-code)
+  - [PersonPersistence.cs](#personpersistencecs)
+  - [PersonController.cs](#personcontrollercs)
+- [Use Configuration File](#use-configuration-file)
+- [Securing API with API Key](#securing-api-with-api-key)
+
 # Preparing Development #
 - Install C# to Visual Studio;
+  
 - Install Rest extension to Chrome, so we can test web api easily within Chrome, for me it is Restlet Client;  
+  
 - Create our project using `Visual C#\ASP.NET Web Application\Empty` template, check `WebAPI` box; To enable authentication, we should select `WebAPI` template then click `change Authentication` button to change the authentication mehtod;  
+  
 -  For this tutorial, we created a database containing a table named `tblpersonnel` to connect with this web API; Table description:  
     ```
     +-----------+-------------+------+-----+---------+----------------+
@@ -15,6 +30,7 @@
     | EndDate   | datetime    | YES  |     | NULL    |                |
     +-----------+-------------+------+-----+---------+----------------+
     ```
+
 - Add `MySql.Data` to References to connect to MySQL Database, but before we can do this, we should have `ConnectorNet` installed to MySQL;
 
 # Add a Controller #
@@ -111,7 +127,7 @@ namespace SimpleRestServer
 # Finish the Code
 Next we should finish all the functions that are used to query the database, and all the APIs;  
 
-PersonPersistence.cs
+## PersonPersistence.cs ##
 ```C#
 using System;
 using System.Collections.Generic;
@@ -264,7 +280,7 @@ namespace SimpleRestServer
 }
 ```
 
-PersonController.cs
+## PersonController.cs ##
 ```C#
 using System;
 using System.Collections.Generic;
@@ -336,3 +352,70 @@ namespace SimpleRestServer.Controllers
     }
 }
 ```
+
+# Use Configuration File #
+For security reason, we don't want our connection strings or something sensitive writen in code, write it in the configuration file;  
+
+In `Web.config` file, add a new section in `configuration/appSettings`:  
+```
+<connectionStrings>
+    <add name="localDB" connectionString="server=127.0.0.1;uid=root;pwd=tmwfiawc;database=employeedb">
+</connectionStrings>
+```
+Then replace the connectionStrings in code like this:  
+`myConnectionString = ConfigurationManager.ConnectionStrings["localDB"].ConnectionString;`
+
+*Note: `connectionStrings` is with a lower case character in configuations, but in code, it comes up with a upper case in the `ConfiguationManager`, don't get it stuck you there;*
+
+**Furthermore**, if we don't want our sensitive information upload to source control like github, we can seperate it into a new xml file, and make source control ignoring it:  
+- Add a new config file named `DBConnections.config`, and copy the section added above to the new config file;
+- Replace the copied section in the `Web.config` with:  
+    `<connectionStrings configSource="DBConnections.config" />`  
+
+Now, the code access to the `Web.config` file to get the connection strings, and `Web.config` get the actual strings from `DBConnections.config` file;
+
+# Securing API with API Key #
+- Create a new class derived from `DelegatingHander` and name it `APIKeyMessageHandler.cs` in a newly created folder `MessageHandlers`;  Put following code in it:  
+    ```C#
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http; //Required
+    using System.Threading; //Required
+    using System.Threading.Tasks; //Required
+    using System.Net; //Required
+    using System.Web;
+
+    namespace SimpleRestServer.MessageHandlers
+    {
+        public class APIKeyMessageHandler : DelegatingHandler
+        {
+            private const string CorrectAPIKey = "whencanifinishthisgame";
+
+            protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequestMessage, CancellationToken cancellationToken)
+            {
+                bool isValidKey = false;
+                IEnumerable<string> requestHeaders;
+                var checkApiKeyExists = httpRequestMessage.Headers.TryGetValues("APIKey", out requestHeaders);
+                if(checkApiKeyExists && requestHeaders.FirstOrDefault().Equals(CorrectAPIKey))
+                {
+                    isValidKey = true;
+                }
+
+                if (!isValidKey)
+                {
+                    return httpRequestMessage.CreateResponse(HttpStatusCode.Forbidden, "Invalid API Key");
+                }
+
+                //Calling base class Method
+                var response = await base.SendAsync(httpRequestMessage,    cancellationToken);
+                return response;
+            }
+        }
+    }
+    ```
+    If `isValidKey` is false after checking API key, then this `SendAsync` function will directly end up with a forbidden response that blocks the request, otherwise, the function will call the base function and return the result which let the request coming through; *I think this is the key of the security functionality* 
+
+- Add a new configuration in the `Global.asax.sc` file, in the `Application_Start()` function:  
+    `GlobalConfiguration.Configuration.MessageHandlers.Add(new APIKeyMessageHandler());`  
+    So, everytime a request coming in, an `APIKeyMessageHandler` will be created and do the check;
