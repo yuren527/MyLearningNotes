@@ -316,7 +316,7 @@ namespace SimpleRestServer.Controllers
             long id = pp.SavePerson(person);
             person.ID = id;
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
-            response.Headers.Location = new Uri(Request.RequestUri, id.ToString());
+            response.Headers.Location = new Uri(Request.RequestUri, "person/" + id.ToString());
             return response;
         }
 
@@ -327,7 +327,7 @@ namespace SimpleRestServer.Controllers
             if(pp.UpdatePerson(id, person))//If the record of id exists and executed cmd
             {
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NoContent);
-                response.Headers.Location = new Uri(Request.RequestUri, id.ToString());
+                response.Headers.Location = new Uri(Request.RequestUri, "person/" + id.ToString());
                 return response;
             }
             else
