@@ -1,5 +1,6 @@
-Cpp doesn't have native delegate and event module, but as its flexibility, I implemented my own delegate and event functionality;
-```C++
+// DelegateTestCpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
 #include "pch.h"
 #include <iostream>
 #include <map>
@@ -58,8 +59,3 @@ int main()
 	del.Excute(4);
 	return 0;
 }
-```
-Because member function can't be pass into other functions, so we need to wrap the member function into a non-member function  or a static member function with a context argument followed, this non-member wrapper function will know which object to call from and then we tell it what member function to call, then we can use the wrapper function instead to pass into the delegate object, which can add or remove a function pointer and call it from the delegate object and anywhere; 
-
-[See the Article to get more information](https://stackoverflow.com/questions/12662891/how-can-i-pass-a-member-function-where-a-free-function-is-expected)  
-Also ca see the example in example folder. 
