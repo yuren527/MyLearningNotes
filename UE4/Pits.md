@@ -2,8 +2,8 @@
 **Solution:**
 
 - Change thie macro `GENERATED_BODY()` to `GENERATED_UCLASS_BODY()`
-- Note to add a parameter `FObjectInitializer ObjectInitializer` to the class constructor ONLY in the cpp file;
-- If takes parameters in the replicated function, `FString` and collections	must be marked as const reference, for eaxample: `const TArray<Type>&` and `const FString&`;
+- Note to define the constructor with parameter `const FObjectInitializer& ObjectInitializer` ONLY in the cpp file, don't declare it in the header file;
+- If takes parameters in the replicated function, `FString` and collections must be marked as const reference, for eaxample: `const TArray<Type>&` and `const FString&`;
 
 # Typedef in UE4
 The problem here is that the UHT is only able to recognize types that it already knows about, so when it tries to parse the typedef it will fail. The compiler will still accept the typdef though, so you can still use it in your code. Unfortunately you will not be able to use it in any form that the UHT touches, so you can't use it with UPROPERTY, as a UObject base class, as a UFUNCTION parameter, etc. The UHT is fundamentally unable to understand the typedef so it will always fail.
