@@ -47,3 +47,14 @@ std::string cstr(TCHAR_TO_UTF8(*UE4Str));
 //std::string to FString
 ClientMessage(FString(cstr.c_str()));
 ```
+# Why is Caracter Movement automatically replicated to server
+Characters using CharacterMovementComponent automatically have client-server networking built in. Here's how player movement prediction, replication and correction works in networked games through CharacterMovementComponent for each frame:  
+- TickComponent function is called
+- The acceleration and rotation change for the frame are calculted
+- Either PerformMovement (for locally controlled Characters) or ReplicateMoveToServer (for network clients) is called  
+
+ReplicateMoveToServer saves the move (into a list of pending moves), calls PerformMovement locally, and then replicates the move to the server by calling the replicated function ServerMove. ServerMove receives the movement parameters, including the client's final position and a timestamp. It executes on the server, where it decodes the movement parameters and causes the appropriate movement to occur. It then looks at the resulting position and evaluates the time since the last client response and the difference between the client's stated position and the position determined by the server. If the difference is big enough, the server calls ClientAdjustPosition, which replicates to the client and passes the corrected position along.
+
+When TickComponent is called on the client again, if a correction from the server has been received, the client will call ClientUpdatePosition before calling PerformMovement. This process will replay all of the moves in the pending move list which occurred after the timestamp of the move the server adjusted.  
+
+For more information, see [Character Movement Component](https://docs.unrealengine.com/en-US/Gameplay/Networking/CharacterMovementComponent/index.html)
