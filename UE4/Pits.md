@@ -40,3 +40,5 @@ Something in Replication worth remembering:
 UnrealEngine `UCLASS` just don't support multi-inheritance, it provides `UINTERFACE` and `IINTERFACE`	instead if multi-inheritance;
 
 Don't waste time to get interface of UnrealEngine to work, especially associating RPC functions, it's so rubbish, don't support replication functions, and get rid of your thought to use any multi-inheritance feature in UnrealEngine, use `ActorComponent` instead;
+# Mother fucking C++ native USceneComponent Bug!!
+SceneComponents that are added to an actor in C++ code, cannot be recognized in blueprints, even are marked as editAnywhere, cannot be read from blueprint and will not get any error or warning!!!!! 
