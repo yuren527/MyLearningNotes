@@ -58,3 +58,15 @@ ReplicateMoveToServer saves the move (into a list of pending moves), calls Perfo
 When TickComponent is called on the client again, if a correction from the server has been received, the client will call ClientUpdatePosition before calling PerformMovement. This process will replay all of the moves in the pending move list which occurred after the timestamp of the move the server adjusted.  
 
 For more information, see [Character Movement Component](https://docs.unrealengine.com/en-US/Gameplay/Networking/CharacterMovementComponent/index.html)
+# Simplified guide to make a property replicated
+- Add `UPROPERTY(Replicated)`, if want a notification, add `UPROPERTY(Replicated, ReplicatedUsing=OnRep_FuncName)`;  
+- Declare a function `void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;` in header file; 
+- in cpp file define the function added in header file: 
+```C++
+void ClassName::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ClassName, PropertyName);
+}
+``` 
+- remember to include `UnrealNetwork.h`, otherwise the Macro used in definition will not be recognized;
