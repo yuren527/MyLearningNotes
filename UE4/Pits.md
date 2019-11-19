@@ -47,30 +47,4 @@ SceneComponents that are added to an actor in C++ code, cannot be recognized in 
 A dynamically spawned pawn can't receive input event, but when placing it in the world, it can receive input event.  
 The reason that cause this, is that, when spawning a pawn, it's not posesed by any controller by default, and a input event can only be received when the pawn is posessed. To fix this, just set `AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;`, or change the posess rule in the blueprint defaults, category Pawn;
 
-# Use "Delay" in C++
-**Example:**  
-```C++
-#include "Engine/Public/TimerManager.h"
-...
-...
-...
-FTimerDelegate timerDelegate;//Attach pawns to airplane in 5 seconds
-	FTimerHandle timerHandle;
-	float attachTimeInterval = 5.f;
-	timerDelegate.BindUFunction(this, FName("AttachPawnsToPlane"), plane);
-	GetWorldTimerManager().SetTimer(timerHandle, timerDelegate, attachTimeInterval, false);
- ```
- ```C++
- void APTSGameMode::AttachPawnsToPlane(const AAirplaneBase* plane)
-{
-	if (plane != nullptr) {
-		int playerNum = GetNumPlayers();
-		for (int i = 0; i < playerNum; i++) {
-			ACharacter* p = Cast<ACharacter>(UGameplayStatics::GetPlayerPawn(this, i));
-			p->AttachToComponent(plane->GetAttachPoint(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-			p->GetCharacterMovement()->GravityScale = 0.f;
-		}
-	}
-}
-```
 
