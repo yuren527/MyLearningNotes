@@ -70,3 +70,31 @@ void ClassName::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetim
 }
 ``` 
 - remember to include `UnrealNetwork.h`, otherwise the Macro used in definition will not be recognized;
+
+# Use "Delay" in C++
+**Example:**  
+```C++
+#include "Engine/Public/TimerManager.h"
+...
+...
+...
+FTimerDelegate timerDelegate;//Attach pawns to airplane in 5 seconds
+	FTimerHandle timerHandle;
+	float attachTimeInterval = 5.f;
+	timerDelegate.BindUFunction(this, FName("AttachPawnsToPlane"), plane);
+	GetWorldTimerManager().SetTimer(timerHandle, timerDelegate, attachTimeInterval, false);
+ ```
+ ```C++
+ void APTSGameMode::AttachPawnsToPlane(const AAirplaneBase* plane)
+{
+	if (plane != nullptr) {
+		int playerNum = GetNumPlayers();
+		for (int i = 0; i < playerNum; i++) {
+			ACharacter* p = Cast<ACharacter>(UGameplayStatics::GetPlayerPawn(this, i));
+			p->AttachToComponent(plane->GetAttachPoint(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+			p->GetCharacterMovement()->GravityScale = 0.f;
+		}
+	}
+}
+```
+
