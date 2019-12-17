@@ -98,3 +98,35 @@ FTimerDelegate timerDelegate;//Attach pawns to airplane in 5 seconds
 }
 ```
 
+# Format FString
+Use `FString::Printf()`, Example:
+```C++
+GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("%s %f"), *Msg, Value));
+```
+
+# Custom config file
+To Add a custom config file, create a C++ class derived from `UDeveloperSettings`:
+```C++
+UCLASS(config = UDPConfig, DefaultConfig)
+class PTS_API UUDPSettings : public UDeveloperSettings
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(config, EditAnywhere)
+		FString ListenPort = FString("8888");
+	UPROPERTY(config, EditAnywhere)//listenPort=8888?senderIP=192.168.0.100?senderPort=9999
+		FString SenderIP = FString("192.168.0.100");
+	UPROPERTY(config, EditAnywhere)
+		FString SenderPort = FString("9999");
+	
+};
+```
+`config = configName`, determines the file name, if use `Game` or `Engine`, the values will then be inside the coresponding existing config files;  
+
+To Access the settings values, do like below:
+```C++
+const UUDPSettings* udpSettings = GetDefault<UUDPSettings>();
+	listenPort = udpSettings->ListenPort;
+	senderIP = udpSettings->SenderIP;
+	senderPort = udpSettings->SenderPort;
+```
