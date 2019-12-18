@@ -130,3 +130,35 @@ const UUDPSettings* udpSettings = GetDefault<UUDPSettings>();
 	senderIP = udpSettings->SenderIP;
 	senderPort = udpSettings->SenderPort;
 ```
+
+# Singleton in UE4
+**.h:**
+```C++
+UCLASS()
+class UFPPRequestLib : public UObject
+{
+	GENERATED_BODY()
+
+protected:
+	UFPPRequestLib(const FObjectInitializer& ObjectInitializer);
+
+public:
+	static UFPPRequestLib* GetInstance();
+}
+```
+**.cpp:**
+```C++
+static UFPPRequestLib* Singleton;
+
+UFPPRequestLib::UFPPRequestLib(const FObjectInitializer& ObjectInitializer) :Super(ObjectInitializer) {
+
+}
+
+UFPPRequestLib* UFPPRequestLib::GetInstance() {
+	if (Singleton == nullptr) {
+		Singleton = NewObject<UFPPRequestLib>();
+	}
+	return Singleton;
+}
+```
+It seems a UObject cannot contain a static field, so we define it outside of the class in cpp file;
