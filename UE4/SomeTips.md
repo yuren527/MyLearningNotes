@@ -1,9 +1,12 @@
+<!---
 # Some tips
 ## Test for nullptr to avoid crashing the whole game and editor
 ```C++
 if(!ensure(trigglerVolume != nullptr)) return;
 rootComponent = triggerVolume;
 ```
+-->
+
 # Two-way operator overloading
 **Just overload it outside of the class itself;**
 ```C++
