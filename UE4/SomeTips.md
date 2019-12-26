@@ -168,4 +168,4 @@ UFPPRequestLib* UFPPRequestLib::GetInstance() {
 	return Singleton;
 }
 ```
-It seems a UObject cannot contain a static field, so we define it outside of the class in cpp file;
+**It seems a UObject cannot contain a static field, so we define it outside of the class in cpp file;**
