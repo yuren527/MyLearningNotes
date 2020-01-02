@@ -169,3 +169,21 @@ UFPPRequestLib* UFPPRequestLib::GetInstance() {
 }
 ```
 **It seems a UObject cannot contain a static field, so we define it outside of the class in cpp file;**
+
+# Delegate declaration
+Example:
+```C++
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRequestStructOutputSignature, const FThousandLandmarksResponseStruct&, output);
+DECLARE_EVENT_OneParam(UFPPRequestObject, TestSignature, float);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FTestSignature_1, float, float_1);
+DECLARE_DELEGATE_OneParam(FTestSignature_2, float);
+```
+- A delegate with a dynamic feature should be declared with a parameter type and a parameter name in the macro variation for each parameter, while a delegate without dynamic only need a parameter type declared; 
+
+- A event should be specified a owning class at the first parameter of the macro variation; 
+
+- Any delegate signature should be named starting with a "F"; 
+
+- If exposing the delegate to blueprint, the delegate should be DYNAMIC_MULTICAST, and the signature should be `UPROPERTY(BlueprintAssignable, Category = "CategoryName")`; 
+
+- The receiving function should be marked `UFUNCTION()`;
