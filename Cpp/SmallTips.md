@@ -17,3 +17,6 @@ int main() {
     return 0;
 }
 ```
+
+# 简单的时钟
+·clock_t t = clock();` 现在的时间
