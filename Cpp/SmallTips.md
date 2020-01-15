@@ -19,4 +19,17 @@ int main() {
 ```
 
 # 简单的时钟
-·clock_t t = clock();` 现在的时间
+·clock_t t = clock();` 现在的时间  
+```C++
+clock_t startTime = clock();
+clock_t endTime = clock();
+double passedTime = endTime - startTime;
+```
+**C++ Reference:**
+```
+Returns the processor time consumed by the program.
+
+The value returned is expressed in clock ticks, which are units of time of a constant but system-specific length (with a relation of CLOCKS_PER_SEC clock ticks per second).
+
+The epoch used as reference by clock varies between systems, but it is related to the program execution (generally its launch). To calculate the actual processing time of a program, the value returned by clock shall be compared to a value returned by a previous call to the same function.
+```
