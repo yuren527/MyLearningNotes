@@ -148,6 +148,9 @@ class UFPPRequestLib : public UObject
 
 public:
 	static UFPPRequestLib* GetInstance();
+	
+protected:
+	virtual void BeginDestroy() override;
 }
 ```
 **.cpp:**
@@ -159,6 +162,15 @@ UFPPRequestLib* UFPPRequestLib::GetInstance() {
 		Singleton = NewObject<UFPPRequestLib>();
 	}
 	return Singleton;
+}
+
+void UFPPRequestObject::BeginDestroy()
+{
+	Super::BeginDestroy();
+#if WITH_EDITOR
+	UE_LOG(LogTemp, Warning, TEXT("Begin destroy"));
+#endif
+	Singleton = nullptr;
 }
 ```
 **It seems a UObject cannot contain a static field, so we define it outside of the class in cpp file;**  
