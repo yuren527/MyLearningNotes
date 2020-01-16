@@ -146,9 +146,6 @@ class UFPPRequestLib : public UObject
 {
 	GENERATED_BODY()
 
-protected:
-	UFPPRequestLib(const FObjectInitializer& ObjectInitializer);
-
 public:
 	static UFPPRequestLib* GetInstance();
 }
@@ -157,10 +154,6 @@ public:
 ```C++
 static UFPPRequestLib* Singleton;
 
-UFPPRequestLib::UFPPRequestLib(const FObjectInitializer& ObjectInitializer) :Super(ObjectInitializer) {
-
-}
-
 UFPPRequestLib* UFPPRequestLib::GetInstance() {
 	if (Singleton == nullptr) {
 		Singleton = NewObject<UFPPRequestLib>();
@@ -168,7 +161,9 @@ UFPPRequestLib* UFPPRequestLib::GetInstance() {
 	return Singleton;
 }
 ```
-**It seems a UObject cannot contain a static field, so we define it outside of the class in cpp file;**
+**It seems a UObject cannot contain a static field, so we define it outside of the class in cpp file;**  
+
+Be ware that, a UObject is added to the GC system, so it can be destroyed automaticaaly, but if it's collected by GC then the Singleton will point to somewhere unknown, so we should override the `BeginDestroy` function to make the Singleton pointing to nullptr;
 
 # Delegate declaration
 Example:
