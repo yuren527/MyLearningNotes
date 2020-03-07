@@ -49,4 +49,5 @@ This is due to hot reload bug, to solve this, simply reparent the blueprint clas
 A dynamically spawned pawn can't receive input event, but when placing it in the world, it can receive input event.  
 The reason that cause this, is that, when spawning a pawn, it's not posesed by any controller by default, and a input event can only be received when the pawn is posessed. To fix this, just set `AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;`, or change the posess rule in the blueprint defaults, category Pawn;
 
-
+# USTRUCT Pit! #
+UProperty in Ustruct cannot be marked `BlueprintReadWrite` or `BlueprintReadOnly`, in VS it will not show the correct error message, but compiling in Unreal Engine, will get the error message;
