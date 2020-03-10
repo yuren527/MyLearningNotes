@@ -35,4 +35,5 @@ The epoch used as reference by clock varies between systems, but it is related t
 ```
 
 # Pit of iterating #
-Do NOT remove any element in list or vector when using `For(auto a : list)` to iterate elements, unless immediately return or break the loop after removing! Otherwise, a address error will occur when it comes to next loop;
+Do NOT remove any element in list or vector when using `For(auto a : list)` to iterate elements, unless immediately return or break the loop after removing! Otherwise, a address error will occur when it comes to next loop;  
+See [example](https://github.com/yuren527/MyLearningNotes/tree/master/Cpp/Examples/MarkusDelegate);
