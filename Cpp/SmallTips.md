@@ -33,3 +33,6 @@ The value returned is expressed in clock ticks, which are units of time of a con
 
 The epoch used as reference by clock varies between systems, but it is related to the program execution (generally its launch). To calculate the actual processing time of a program, the value returned by clock shall be compared to a value returned by a previous call to the same function.
 ```
+
+# Pit of iterating #
+Do NOT remove any element in list or vector when using `For(auto a : list)` to iterate elements, unless immediately return or break the loop after removing! Otherwise, a address error will occur when it comes to next loop;
