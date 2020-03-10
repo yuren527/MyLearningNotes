@@ -1,68 +1,118 @@
-Cpp doesn't have native delegate and event module, but as its flexibility, I implemented my own delegate and event functionality;
+# my implemented delegate in C++ #
+.h:
 ```C++
-#include <iostream>
-#include <vector>
-#include <map>
+#pragma once
+#include <list>
 
-class MyDelegate {
-public:
-	std::vector<void (*)(int)> funcPtrs;
-	void Bind(void (*func)(int)) {
-		funcPtrs.push_back(func);
-	}
-	void Invoke(int a) {
-		for (auto f : funcPtrs) {
-			f(a);
+using namespace std;
+
+namespace Markus{
+	template<typename Ret_Ty, typename... P>
+	class MarkusProxyBase {
+	public:
+		virtual void Execute(P... args) = 0;
+		virtual ~MarkusProxyBase() {
+			cout << "Proxy base deleted" << endl;
 		}
-	}
-};
+	};
 
-class MyMemberDelegate {
-public:
-	std::multimap<void*, void (*)(void*, int)> funcPtrs;
-	void Bind(void* obj, void (*func)(void*, int)) {
-		funcPtrs.insert(std::make_pair(obj, func));
-	}
-	void Invoke(int a) {
-		for (auto f : funcPtrs) {
-			f.second(f.first, a);
+	template<typename Ret_Ty, typename... P>
+	class MarkusFuncProxy : public MarkusProxyBase<Ret_Ty, P...>{
+	private:
+		Ret_Ty(*FuncPtr)(P...);
+	public:
+		MarkusFuncProxy(Ret_Ty(*func)(P...)) : FuncPtr(func) {}
+		~MarkusFuncProxy() {
+			cout << "Func proxy deleted" << endl;
 		}
-	}
-};
+		virtual void Execute(P... args) override {
+			if (FuncPtr) {
+				FuncPtr(args...);
+			}
+		}
+		bool Equals(Ret_Ty(*func)(P...)) {
+			return FuncPtr == func;
+		}
+	};
 
-void TestFunc1(int a) {
-	std::cout << "Func1: " << a << std::endl;
-}
+	template<typename Obj_Ty, typename Ret_Ty, typename... P>
+	class MarkusMemProxy : public MarkusProxyBase<Ret_Ty, P...> {
+	private:
+		Obj_Ty* ObjPtr;
+		Ret_Ty(Obj_Ty::* FuncPtr)(P...);
+	public:
+		MarkusMemProxy(Obj_Ty* obj, Ret_Ty(__thiscall Obj_Ty::* func)(P...)) : ObjPtr(obj), FuncPtr(func) {}
+		~MarkusMemProxy() {
+			cout << "Mem proxy deleted" << endl;
+		}
+		virtual void Execute(P... args) override {
+			if (ObjPtr && FuncPtr) {
+				(ObjPtr->*FuncPtr)(args...);
+			}
+		}
+		bool Equals(Obj_Ty* obj, Ret_Ty(Obj_Ty::* func)(P...)) {
+			return ObjPtr == obj && FuncPtr == func;
+		}
+	};
 
-class TestObject {
-public:
-	void TestFunc2(int a) {
-		std::cout << "Func2: " << a << std::endl;
-	}
-	static void TestFunc2Wrapper(TestObject* obj, int a) {
-		obj->TestFunc2(a);
-	}
-};
-
-int main()
-{
-	MyDelegate del1;
-	del1.Bind(&TestFunc1);
-	del1.Invoke(4);
-
-	MyMemberDelegate del2;
-	TestObject obj;
-	del2.Bind(&obj, reinterpret_cast<void (*)(void*, int)>(&TestFunc2));
-	del2.Invoke(2);
-	
+	template<typename Ret_Ty, typename... P>
+	class MarkusDelegate {
+	private:
+		list<MarkusProxyBase<Ret_Ty, P...>*> Proxies;
+	public:
+		~MarkusDelegate() {
+			for (MarkusProxyBase<Ret_Ty, P...>* it : Proxies) {
+				delete it;
+			}
+		}
+		void Clear() {
+			for (MarkusProxyBase<Ret_Ty, P...>* it : Proxies) {
+				delete it;
+			}
+			Proxies.empty();
+		}
+		void Add(Ret_Ty(*func)(P...)) {
+			Proxies.push_back(new MarkusFuncProxy<Ret_Ty, P...>(func));
+		}
+		template<typename Obj_Ty>
+		void Add(Obj_Ty* obj, Ret_Ty(Obj_Ty::* func)(P...)) {
+			Proxies.push_back(new MarkusMemProxy<Obj_Ty, Ret_Ty, P...>(obj, func));
+		}
+		void Remove(Ret_Ty(*func)(P...)) {
+			for (MarkusProxyBase<Ret_Ty, P...>* it : Proxies) {
+				if (MarkusFuncProxy<Ret_Ty, P...> * proxy = dynamic_cast<MarkusFuncProxy<Ret_Ty, P...>*>(it)) {
+					if (proxy->Equals(func)) {
+						Proxies.remove(it);
+						delete it;
+						return;
+					}
+				}
+			}
+		}
+		template<typename Obj_Ty>
+		void Remove(Obj_Ty* obj, Ret_Ty(Obj_Ty::* func)(P...)) {
+			for (MarkusProxyBase<Ret_Ty, P...>* it : Proxies) {
+				if (MarkusMemProxy<Obj_Ty, Ret_Ty, P...> * proxy = dynamic_cast<MarkusMemProxy<Obj_Ty, Ret_Ty, P...>*>(it)) {
+					if (proxy->Equals(obj, func)) {
+						Proxies.remove(it);
+						delete it;
+						return;
+					}
+				}
+			}
+		}
+		void Invoke(P... args) {
+			for (MarkusProxyBase<Ret_Ty, P...>* it : Proxies) {
+				it->Execute(args...);
+			}
+		}
+		size_t GetDelegateNum() const {
+			return Proxies.size();
+		}
+	};
 }
 ```
-For non-member functions or static functions, it's easy to bind it to a delegate;
 
-But, for member functions, things get a little complex. Because member function can't be passed into other functions without a object, so we need to wrap the member function into a non-member function  or a static member function with a context argument followed, this non-member wrapper function will know which object to call from and then we tell it what member function to call, then we can use the wrapper function instead to pass into the delegate object, which can add or remove a function pointer and call it from the delegate object and anywhere; 
-
-[See the Article to get more information](https://stackoverflow.com/questions/12662891/how-can-i-pass-a-member-function-where-a-free-function-is-expected)  
-Also ca see the example in example folder. 
 
 # Using macros
 There is another way to bind a member function to a delegate, using macro:  
