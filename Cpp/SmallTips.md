@@ -43,4 +43,5 @@ A anonymous-namespace function cannot be linked either, so we can define a bunch
 To link a extern function, or variable, use `extern`, but it won't work it's static or in a anonymous-namespace;
 
 # extern template #
-Using template function means instantiating a template, but if we want to use the templated function in different files, normally the original template will be compiled into both file, unless we instantiate first function with `template void Func<T>();` in first place, then declare a extern function with `extern template void Func<T>();` in the other place;
+Using template function means instantiating a template, but if we want to use the templated function in different files, normally the original template will be compiled into both file, unless we instantiate first function with `template void Func<T>();` in first place, then declare a extern function with `extern template void Func<T>();` in the other place;  
+For more detail of keyword `extern`, see the [website](https://www.cnblogs.com/broglie/p/5524932.html);
