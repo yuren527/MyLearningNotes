@@ -36,3 +36,8 @@ The epoch used as reference by clock varies between systems, but it is related t
 
 # Pit of iterating #
 Do NOT remove any element in list or vector when using `For(auto a : list)` to iterate elements, unless immediately return or break the loop after removing! Otherwise, a address error will occur when it comes to next loop;  
+
+# Non-member static function and anonymous-namespace #
+A non-member static function cannot be linked outside the file, as it's with internal linkage;  
+A anonymous-namespace function cannot be linked either, so we can define a bunch of anonymous-namespace functions instead of a bunch of static functions;  
+To link a extern function, class or variable, use `extern`, but it won't work it's static or in a anonymous-namespace;
