@@ -143,7 +143,11 @@ void UFPPRequestObject::BeginDestroy()
 	Singleton = nullptr;
 }
 ```
-**It seems a UObject cannot contain a static field, so we define it outside of the class in cpp file;**  
+**In this case, we define a pointer to singleton of the class in cpp file; We can also define a private static field of the singleton inside the class, but then we have to initialize it in cpp file too, like below:**
+```C++
+//.Cpp
+UFPPRequestLib* UFPPRequestLib::Singleton = nullptr;
+```
 
 Be ware that, a UObject is added to the GC system, so it can be destroyed automaticaaly, but if it's collected by GC then the Singleton will point to somewhere unknown, so we should override the `BeginDestroy` function to make the Singleton pointing to nullptr;
 
