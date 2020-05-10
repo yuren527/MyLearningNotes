@@ -113,6 +113,7 @@ namespace Markus{
 }
 ```
 
+See [example](https://github.com/yuren527/MyLearningNotes/tree/master/Cpp/Examples/MarkusDelegate);
 
 # Using macros
 There is another way to bind a member function to a delegate, using macro:  

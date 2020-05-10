@@ -35,4 +35,13 @@ The epoch used as reference by clock varies between systems, but it is related t
 ```
 
 # Pit of iterating #
-Do NOT remove any element in list or vector when using `For(auto a : list)` to iterate elements, unless immediately return or break the loop after removing! Otherwise, a address error will occur when it comes to next loop;
+Do NOT remove any element in list or vector when using `For(auto a : list)` to iterate elements, unless immediately return or break the loop after removing! Otherwise, a address error will occur when it comes to next loop;  
+
+# Non-member static function and anonymous-namespace #
+A non-member static function cannot be linked outside the file, as it's with internal linkage;  
+A anonymous-namespace function cannot be linked either, so we can define a bunch of anonymous-namespace functions instead of a bunch of static functions;  
+To link a extern function, or variable, use `extern`, but it won't work it's static or in a anonymous-namespace;
+
+# extern template #
+Using template function means instantiating a template, but if we want to use the templated function in different files, normally the original template will be compiled into both file, unless we instantiate first function with `template void Func<T>();` in first place, then declare a extern function with `extern template void Func<T>();` in the other place;  
+For more detail of keyword `extern`, see the [website](https://www.cnblogs.com/broglie/p/5524932.html);

@@ -1,35 +1,5 @@
-<!---
-# Some tips
-## Test for nullptr to avoid crashing the whole game and editor
-```C++
-if(!ensure(trigglerVolume != nullptr)) return;
-rootComponent = triggerVolume;
-```
--->
 
-# Two-way operator overloading
-**Just overload it outside of the class itself;**
-```C++
-inline bool operator ==(const UBuildingGroupID& lhs, const UBuildingGroupID& rhs)
-{
-	return lhs.GetID() == rhs.GetID() ? true : false;
-}
-```
 
-<!---
- # TMap replication
-Currently, up to UE 4.21, `TMap` as parameter of a replicated function is not supported; So is `TSet`, only `TArray` can be used as replicated function parameters;
-# .generated.h file
-If a `.h` file contains any `UCLASS` or `USTRUCT`, `.generated.h` file should be included at the end of included file list; otherwise the UE macros will not be recognized;
--->
-
-# How to initialize a member without copy constructor and assignment operator
-```C++
-BuildingNodeGroup::BuildingNodeGroup(const FString & owner, FTransform trans) : ownerID(owner), baseTransform(trans), groupID(), nodes() {};
-```
-Need to use initializer-list, `groupID()` in the init-list can initialize the variable with a temporary nameless object which calls the default constructor;
-
-For more information, see the [Value Initialization](https://en.cppreference.com/w/cpp/language/value_initialization);
 # Create a basic shape in actor constructor
 - First, include `ConstructorHelpers.h`;  
 - Second, use `static ConstructorHelpers::FObjectFinder<UStaticMesh>` to load the mesh;
@@ -173,7 +143,11 @@ void UFPPRequestObject::BeginDestroy()
 	Singleton = nullptr;
 }
 ```
-**It seems a UObject cannot contain a static field, so we define it outside of the class in cpp file;**  
+**In this case, we define a pointer to singleton of the class in cpp file; We can also define a private static field of the singleton inside the class, but then we have to initialize it in cpp file too, like below:**
+```C++
+//.Cpp
+UFPPRequestLib* UFPPRequestLib::Singleton = nullptr;
+```
 
 Be ware that, a UObject is added to the GC system, so it can be destroyed automaticaaly, but if it's collected by GC then the Singleton will point to somewhere unknown, so we should override the `BeginDestroy` function to make the Singleton pointing to nullptr;
 
