@@ -1,0 +1,5 @@
+git仓库位置 /git
+.ssh位置 /home/git/.ssh
+
+git修改密码 # passwd git
+修改git用户权限 sudo chmod 777 -R /git/
