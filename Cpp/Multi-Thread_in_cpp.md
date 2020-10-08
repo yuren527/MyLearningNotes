@@ -177,3 +177,24 @@ std::cout << "My thread id is: " << this_id << "; result: " << acm << std::endl;
 - The code coming after std::lock_guard creation is automatically locked. No need for explicit lock() and unlock() function calls.
 - The critical section automatically ends when std::lock_guard goes out of scope. This makes it exception safe, and also we don’t need to remember to call unlock()
 - lock_guard still requires using a variable of type std::mutex in its constructor.
+
+## Member function multi-thread
+Start a thread with a member function, should pass in the pointer to this object.
+```C++
+#include <thread>
+#include <iostream>
+
+class bar {
+public:
+  void foo(int a) {
+    std::cout << a << std::endl;
+  }
+};
+
+int main()
+{
+int b;
+  std::thread t(&bar::foo, bar(), b);
+  t.join();
+}
+```
