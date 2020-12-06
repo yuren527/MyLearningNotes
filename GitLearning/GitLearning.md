@@ -37,7 +37,7 @@ git add
 git status
 git rm --cached <file>
 git restore --staged <file> //Restore the staged status of the file, do not affect the file in working area
-git restore <file> //Restore the file to last commit
+git restore <file> //Restore the file to last staged file
 git commit -m"message"
 ```
 git log commands
@@ -52,7 +52,7 @@ git shortlog
 git log --stat
 git log --help
 ```
-## Git low level commands ##
+## Git Low Level Commands ##
 ```
 git cat-file <hash> //Hash is a hex string, in this case we don't have to paste in the entire hash code, but first 6 chars is enough, such as "8d0e41"
 git cat-file -t <hash> //type
@@ -62,11 +62,11 @@ git ls-files
 git ls-files -s
 ```
 `git cat-file <hash>` is used to find the file from a hash object
-## Other commands ##
+## Other Commands ##
 This command is used to translate a content into a SHA1 code, but for git, all content are translated with a prefix attached, for example, "hello git" is actually translated from "blob 10\0hello git", so if we want get the actual hash of "hello git", we should do as `echo "blob 10\0hello git" | shasum`
 ```
 echo "hello git" | shasum
 ```
-## Core concept ##
+## Core Concept ##
 - Git objects only store the contents of files, filenames are stored in index
 - There is no folders in git, it is tree that organizes the files
