@@ -52,7 +52,7 @@ git shortlog
 git log --stat
 git log --help
 ```
-## git low level commands ##
+## Git low level commands ##
 ```
 git cat-file <hash> //Hash is a hex string, in this case we don't have to paste in the entire hash code, but first 6 chars is enough, such as "8d0e41"
 git cat-file -t <hash> //type
