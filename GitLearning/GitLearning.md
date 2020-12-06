@@ -1,4 +1,4 @@
-## Basic Console Commands ##
+# Basic Console Commands #
 ```
 clear
 pwd
@@ -17,7 +17,8 @@ tree
 vim <file>
 ```
 
-## Git Commands ##
+# Git Commands #
+### Git Basic Commands ###
 Show current version of git
 ```
 git --version
@@ -52,7 +53,26 @@ git shortlog
 git log --stat
 git log --help
 ```
-## Git Low Level Commands ##
+### Git Branch Commands ###
+```
+git branch
+git branch <branch_name> //Create a branch based on current active branch, if there already have a branch with the given name, it will return a error
+git branch -D <branch_name> //Force delete a branch, can't delete current active branch or branch not existing
+git branch -d <branch_name> //Delete a branch with checking if the branch is fully merged into other branch
+git branch --delete <branch_name>
+git checkout <branch_name> //Change to a branch
+git branch -m <old_name> <new_name> //Rename the branch, only rename the file of head
+git -reflog
+git checkout -b <branch_name> //Create a new branch and checkout to it
+git checkout <file> //Restore a file using checkout from the repository
+```
+As we know, a branch is no more than a named commit, so we can checkout to a specific commit without a branch name by `git checkout commit_hash>`, this is called `detached HEAD`, it is often used to recover a deleted branch, to do so we need to find out the commit by using `git -reflog` to filter the commit objects from thousands of objects
+
+```
+git diff //Compare the changes in working area with the staged files
+git diff ---cached //Compare the staged files with the repository
+```
+# Git Low Level Commands #
 ```
 git cat-file <hash> //Hash is a hex string, in this case we don't have to paste in the entire hash code, but first 6 chars is enough, such as "8d0e41"
 git cat-file -t <hash> //type
@@ -62,11 +82,12 @@ git ls-files
 git ls-files -s
 ```
 `git cat-file <hash>` is used to find the file from a hash object
-## Other Commands ##
+# Other Commands #
 This command is used to translate a content into a SHA1 code, but for git, all content are translated with a prefix attached, for example, "hello git" is actually translated from "blob 10\0hello git", so if we want get the actual hash of "hello git", we should do as `echo "blob 10\0hello git" | shasum`
 ```
 echo "hello git" | shasum
 ```
-## Core Concept ##
+# Core Concept #
 - Git objects only store the contents of files, filenames are stored in index
 - There is no folders in git, it is tree that organizes the files
+- Deleting a branch does not delete any objects, but delete head in `logs/refs/heads/` and `refs/heads/` only
