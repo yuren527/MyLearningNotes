@@ -91,3 +91,4 @@ echo "hello git" | shasum
 - Git objects only store the contents of files, filenames are stored in index
 - There is no folders in git, it is tree that organizes the files
 - Deleting a branch does not delete any objects, but delete head in `logs/refs/heads/` and `refs/heads/` only
+- Nobldy should work on master branch directly, everyone have his own working branch, when his job is done, try to merge his branch to the master branch
