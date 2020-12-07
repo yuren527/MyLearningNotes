@@ -92,3 +92,4 @@ echo "hello git" | shasum
 - There is no folders in git, it is tree that organizes the files
 - Deleting a branch does not delete any objects, but delete head in `logs/refs/heads/` and `refs/heads/` only
 - Nobldy should work on master branch directly, everyone have his own working branch, when his job is done, try to merge his branch to the master branch
+- After merging a branch, a file named as `ORIG_HEAD` pointing to the last commit before merging is generated under .git, this is used to restore from merging in case of promblems caused by merging, merging operation is sometimes risky, use `git reset ORIG_HEAD` to restore
