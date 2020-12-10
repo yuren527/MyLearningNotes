@@ -65,6 +65,9 @@ git branch -m <old_name> <new_name> //Rename the branch, only rename the file of
 git -reflog
 git checkout -b <branch_name> //Create a new branch and checkout to it
 git checkout <file> //Restore a file using checkout from the repository
+git merge <branch_name>
+git rebase <branch_name> //Reabse the current active branch to the latest commit of given branch
+git push origin <branch_name> --force
 ```
 As we know, a branch is no more than a named commit, so we can checkout to a specific commit without a branch name by `git checkout commit_hash>`, this is called `detached HEAD`, it is often used to recover a deleted branch, to do so we need to find out the commit by using `git -reflog` to filter the commit objects from thousands of objects
 
@@ -93,3 +96,4 @@ echo "hello git" | shasum
 - Deleting a branch does not delete any objects, but delete head in `logs/refs/heads/` and `refs/heads/` only
 - Nobldy should work on master branch directly, everyone have his own working branch, when his job is done, try to merge his branch to the master branch
 - After merging a branch, a file named as `ORIG_HEAD` pointing to the last commit before merging is generated under .git, this is used to restore from merging in case of promblems caused by merging, merging operation is sometimes risky, use `git reset ORIG_HEAD` to restore
+- Git rebase should never be used on master branch and branches which are used by other developers, as rebase has to be force pushed to remote repository and overwrite the hash of all commits of the branch, it could cause many serious problems for others wo pulled the branch from remote repository
