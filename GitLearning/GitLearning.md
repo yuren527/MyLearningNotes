@@ -70,11 +70,43 @@ git rebase <branch_name> //Reabse the current active branch to the latest commit
 git push origin <branch_name> --force
 ```
 As we know, a branch is no more than a named commit, so we can checkout to a specific commit without a branch name by `git checkout commit_hash>`, this is called `detached HEAD`, it is often used to recover a deleted branch, to do so we need to find out the commit by using `git -reflog` to filter the commit objects from thousands of objects
-
 ```
 git diff //Compare the changes in working area with the staged files
 git diff ---cached //Compare the staged files with the repository
 ```
+### Git Remote Branch Commands ###
+**Branch creation commands:**
+
+`git push -u origin <branch_name>` Push local branch to remote branch, if <branch_name> branch does not exist remotely, it would be created. 
+
+**Branch deletion:**
+
+`git branch -d <branch_name>` delete local branch 
+
+`git push origin -d <branch_name>` delete remote branch 
+
+**List all local and remote branch:**
+
+`git branch -a` list all branches both local and remote 
+
+`git branch -r` list all remote origin branches 
+
+`git branch -vv` list all local branches tracking information 
+
+**Sync remote branch:**
+
+`git fetch` download objects and refs from remote repository `--prune` Before fetching, remove any remote-tracking references that no longer exist on the remote
+`git pull` fetch and merge origin to local tracking branch
+
+### Git Remote Commands ###
+`git remote add/remove <name> <url>` add a remote 
+
+`git remote` get remote name, origin be default, `-v` display more information like remote url 
+
+`git remote show origin` show remote origin tracking information, need connect to internet 
+
+`git remote prune origin` delete local origin branch which does not exist on remote
+
 # Git Low Level Commands #
 ```
 git cat-file <hash> //Hash is a hex string, in this case we don't have to paste in the entire hash code, but first 6 chars is enough, such as "8d0e41"
