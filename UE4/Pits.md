@@ -32,3 +32,11 @@ For multiple modules in one project, classes and functions should be exported fr
 
 # AutonomousProxy Replication Pit #
 It seems that, actor movement don't replicates from server to autonomousProxy client, so we have to move the actor in local function and server function when we want to move the actor itself from autonomousProxy client. Otherwise, the movement of actor will differ between server and autonomous client.
+
+# Spawn Actor From TSubClassOf<>
+if
+```
+TSubClassOf<AActor> subClass;
+```
+Use `subClass.Get()`, do not use `subClass->StaticClass()`
+
