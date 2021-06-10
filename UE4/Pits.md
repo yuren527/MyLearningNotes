@@ -40,9 +40,11 @@ TSubClassOf<AActor> subClass;
 ```
 Use `subClass.Get()`, do not use `subClass->StaticClass()`
 
-# BlueprintImplementableEvent function parameters #
+# BlueprintImplementableEvent pits #
+### BlueprintImplementableEvent function parameters 
 ```
 UFUNCTION(BlueprintImplementableEvent)
 		void SetResult(const FText& t);
 ```
 Use  `const FText&` instead of `FText`
+### BlueprintImplementableEvent cannot be private, use protected instead
