@@ -48,3 +48,6 @@ UFUNCTION(BlueprintImplementableEvent)
 ```
 Use  `const FText&` instead of `FText`
 ### BlueprintImplementableEvent cannot be private, use protected instead
+
+# Pit in Component field replicateion
+If want fields in component to be replicated, besides marking them as `UPROPERTY(Replicated)`, **DO NOT** forget to set the component replicated too `comp->SetIsReplicated(true)`, otherwise, the component itself is not replicated, so the fields are not replicated neither.
