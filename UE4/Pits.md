@@ -27,9 +27,6 @@ The reason that cause this, is that, when spawning a pawn, it's not posesed by a
 # USTRUCT Pit! #
 UProperty in Ustruct cannot be marked `BlueprintReadWrite` or `BlueprintReadOnly`, in VS it will not show the correct error message, but compiling in Unreal Engine, will get the error message;
 
-# Module export #
-For multiple modules in one project, classes and functions should be exported from dlls, in UE4, Any classes or functions which should be called from inside the other modules, should be marked `[ModuleName]_API` macro and declared in header file, then implemented in cpp file, if defined directly in header file, the classes and functions will expose when other modules include the header file;
-
 # AutonomousProxy Replication Pit #
 It seems that, actor movement don't replicates from server to autonomousProxy client, so we have to move the actor in local function and server function when we want to move the actor itself from autonomousProxy client. Otherwise, the movement of actor will differ between server and autonomous client.
 
