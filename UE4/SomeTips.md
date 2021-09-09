@@ -168,3 +168,48 @@ DECLARE_DELEGATE_OneParam(FTestSignature_2, float);
 - If exposing the delegate to blueprint, the delegate should be DYNAMIC_MULTICAST, and the signature should be `UPROPERTY(BlueprintAssignable, Category = "CategoryName")`; 
 
 - The receiving function should be marked `UFUNCTION()`;
+
+# Example for DataTable Asset Linker
+```C++
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Engine/DataTable.h"
+#include "ResourceLinkTable.generated.h"
+
+#define LINKER_PATH "DataTable'/Game/ResourceLinkTable.ResourceLinkTable'"
+
+USTRUCT(BlueprintType)
+struct FResourceLinkTableRow : public FTableRowBase
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere)
+		TSoftObjectPtr<UObject> Asset; 
+};
+
+template<typename T>
+T* GetResourceAsset(FName rowName) {
+	UDataTable* pTable = LoadObject<UDataTable>(NULL, UTF8_TO_TCHAR(LINKER_PATH));
+
+	if (!pTable) {
+		UE_LOG(LogTemp, Warning, TEXT("Linker table not found"));
+		return nullptr;
+	}
+
+	FString contextString;
+	FEditorAssetLinkerRowBase* row = pTable->FindRow<FEditorAssetLinkerRowBase>(rowName, contextString);
+	if (!row) {
+		UE_LOG(LogTemp, Warning, TEXT("Linker row not found, row name: %s"), *rowName.ToString());
+		return nullptr;
+	}
+
+	T* ptr = Cast<T>(row->Asset.Get());
+	if (!ptr) {
+		UE_LOG(LogTemp, Warning, TEXT("Linker object cast fail"));
+		return nullptr;
+	}
+
+	return ptr;	
+}
+```
