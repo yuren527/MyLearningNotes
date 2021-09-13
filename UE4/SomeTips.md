@@ -171,8 +171,6 @@ DECLARE_DELEGATE_OneParam(FTestSignature_2, float);
 
 # Example for DataTable Asset Linker
 ```C++
-#pragma once
-
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
 #include "ResourceLinkTable.generated.h"
@@ -198,13 +196,13 @@ T* GetResourceAsset(FName rowName) {
 	}
 
 	FString contextString;
-	FEditorAssetLinkerRowBase* row = pTable->FindRow<FEditorAssetLinkerRowBase>(rowName, contextString);
+	FResourceLinkTableRow* row = pTable->FindRow<FResourceLinkTableRow>(rowName, contextString);
 	if (!row) {
 		UE_LOG(LogTemp, Warning, TEXT("Linker row not found, row name: %s"), *rowName.ToString());
 		return nullptr;
 	}
 
-	T* ptr = Cast<T>(row->Asset.Get());
+	T* ptr = Cast<T>(row->Asset.LoadSynchronous());
 	if (!ptr) {
 		UE_LOG(LogTemp, Warning, TEXT("Linker object cast fail"));
 		return nullptr;
@@ -212,4 +210,5 @@ T* GetResourceAsset(FName rowName) {
 
 	return ptr;	
 }
+
 ```
