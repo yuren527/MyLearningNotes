@@ -47,7 +47,7 @@
 |Shift+A|Open add menu|
 |X|Open delete menu|
 
-# Outliner shortcuts
+# Outliner Shortcuts
 |Key|Function|
 |:---:|:---:|
 |Numpad +/-|Expand/Collapse collection|
@@ -55,3 +55,17 @@
 |C|Create new collection|
 |Shift+M|Link object to collection|
 
+# Edit Mode Shortcuts
+|Key|Function|
+|:---:|:---:|
+|1/2/3|Vertice/Edge/Face select|
+|Shift+1/2/3|Multiple select mode|
+|Alt+Left Mouse|Loop select|
+|E|Extrude|
+|Ctrl+Right Mouse|Extrude to cursor|
+|Ctrl+R|Loop cut|
+|Middle Mouse Wheel|Add loop num when using loop cut|
+|Ctrl+B|Bevel|
+|Ctrl+Shift+B|Vertex only bevel|
+|K|Knife tool|
+|SpaceBar/Enter|Confirm cut when using knife tool|
