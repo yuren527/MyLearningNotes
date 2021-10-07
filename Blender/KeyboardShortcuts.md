@@ -84,6 +84,8 @@
 |Alt+F|Fill hole|
 
 # Paint Weight
+|Key|Function|
+|:---:|:---:|
 |E|Add a new bone at the end|
 |F|Change brush size|
 |M|Move a bone to a layer|
