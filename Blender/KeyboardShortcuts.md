@@ -82,6 +82,7 @@
 |M|Merge points|
 |F|Create new edge/face from vertices|
 |Alt+F|Fill hole|
+|Double tap G|Slide edge|
 
 # Paint Weight
 |Key|Function|
