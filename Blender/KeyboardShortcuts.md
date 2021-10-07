@@ -9,12 +9,15 @@
 |Numpad 0|Camera view|
 |Numpad .|Focus selection|
 |Numpad +/-|Zoom|
+|`|View menu|
 
 # Layout Shortcuts
 |Key|Function|
 |:---:|:---:|
 |Ctrl+PageDown/PageUp|Go over each of the workspaces|
 |Ctrl+SpaceBar|Focus on a panel|
+|Tab|Toggle edit mode|
+|Ctrl+Tab|Toggle pose mode(There must be a armature in the scene|
 
 - Click and drag the panel edge to scale panels
 - Right click on the panel edge to create new panel, or join two panels together
@@ -46,6 +49,13 @@
 |Shift+Tab|Toggle snapping|
 |Shift+A|Open add menu|
 |X|Open delete menu|
+|Ctrl+J|Join two meshes|
+|Shift+D|Duplicate|
+|Ctrl+P|Set prent|
+|Alt+P|Clear parent|
+|H|Hide|
+|Alt+H|Unhide|
+|Shift+H|Hide others|
 
 # Outliner Shortcuts
 |Key|Function|
@@ -69,3 +79,13 @@
 |Ctrl+Shift+B|Vertex only bevel|
 |K|Knife tool|
 |SpaceBar/Enter|Confirm cut when using knife tool|
+|M|Merge points|
+|F|Create new edge/face from vertices|
+|Alt+F|Fill hole|
+
+# Paint Weight
+|E|Add a new bone at the end|
+|F|Change brush size|
+|M|Move a bone to a layer|
+
+
