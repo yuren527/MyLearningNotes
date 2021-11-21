@@ -1,0 +1,5 @@
+- Download opencv release from github
+- Extract to disk, we extract to `C:\OpenCV` for example here
+- Add bin file folder to environment variable path, search for "env" in windows, then enter the evironment variables, add `C:\OpenCV\opencv\build\bin` to path
+- In C++ project properties, VC++ Directories,  add `C:\OpenCV\opencv\build\include` to include directories, and `C:\OpenCV\opencv\build\x64\vc15\lib` to library directories
+- In `linker->input`, Add `opencv_world454.lib` or `opencv_world454d.lib`, d for debug without d for release.
