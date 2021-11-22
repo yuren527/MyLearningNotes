@@ -98,3 +98,30 @@ int main() {
   return 0;
 }
 ```
+# Drawing shapes and text
+```C++
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <iostream>
+
+using namespace std;
+using namespace cv;
+
+int main() {
+	Mat img(512, 512, CV_8UC3, Scalar(255, 255, 255));
+
+	circle(img, Point(256, 256), 155, Scalar(0, 69, 255), FILLED);
+	rectangle(img, Point(130, 226), Point(382, 286), Scalar(255, 255, 255), FILLED);
+	rectangle(img, Rect(226, 130, 60, 252), Scalar(255, 255, 255), FILLED);
+	line(img, Point(130, 296), Point(382, 296), Scalar(255, 255, 255));
+	putText(img, "Markus Gao", Point(137, 262), 1.5, FONT_HERSHEY_DUPLEX, Scalar(0, 69, 255), 3);
+	imshow("Image", img);
+
+	waitKey(0);
+	return 0;
+}
+```
+- `CV_8UC3` means 8 bits unsigned 3-chanel color(RGB)
+- Use Scalar() to specify color
+- rectangle can be draw with `rect` or `point`
