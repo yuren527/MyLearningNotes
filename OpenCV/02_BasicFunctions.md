@@ -125,3 +125,39 @@ int main() {
 - `CV_8UC3` means 8 bits unsigned 3-chanel color(RGB)
 - Use Scalar() to specify color
 - rectangle can be draw with `rect` or `point`
+- Thickness is applied by int or `FILLED` which is -1
+
+# Warp Perspective
+```C++
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <iostream>
+
+using namespace std;
+using namespace cv;
+
+int main() {
+	Mat img = imread("Resources/opencvtest2.jpeg");
+
+	float w = 250, h = 350;
+	Mat matrix, imgWarp;
+
+	Point2f src[4] = {{218, 410}, {442, 394}, {188, 656}, {466, 631}};
+	Point2f dst[4] = {{0, 0}, {w, 0}, {0, h}, {w, h}};
+
+	// Display points
+	for (int i = 0; i < 4; i++) {
+		circle(img, src[i], 5, Scalar(0, 0, 255), FILLED);
+	}
+
+	matrix = getPerspectiveTransform(src, dst);
+	warpPerspective(img, imgWarp, matrix, Size(w,h));
+
+	imshow("Image", img);
+	imshow("Image Warp", imgWarp);
+	waitKey(0);
+
+	return 0;
+}
+```
