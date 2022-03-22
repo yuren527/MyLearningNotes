@@ -12,4 +12,4 @@ Use console command `ProfileGPU` or short-cut `Ctrl-Shift + ,` to open.
 Console command `stat gpu` to open text GPU profiling.
 
 ## ShadowMap VS Virtual ShadowMap
-They are both used to render shadow into a distance field map, but ShadowMap is a traditional way which is less effective with high poly scenes, while virtual shadow map is suitable for nanite scenes.
+They are both used to render shadow into a distance field map, but ShadowMap is a traditional way which is less effective with high poly scenes, while virtual shadow map is suitable for nanite scenes but could cause a huge impact to low-poly scenes.
