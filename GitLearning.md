@@ -130,3 +130,12 @@ echo "hello git" | shasum
 - After merging a branch, a file named as `ORIG_HEAD` pointing to the last commit before merging is generated under .git, this is used to restore from merging in case of promblems caused by merging, merging operation is sometimes risky, use `git reset ORIG_HEAD` to restore
 - Git rebase should never be used on master branch and branches which are used by other developers, as rebase has to be force pushed to remote repository and overwrite the hash of all commits of the branch, it could cause many serious problems for others wo pulled the branch from remote repository
 - `git pull` equals to a 2 steps operation, which fetch from remote to async `origin/master` first, then merge `origin/master` to `master`. There is two possible  situation, one is fast forward, another is 3 way merge. If it is a 3-way-merge, the `origin/master` is altered to pointing to a new commit after 3-way-merge, meanwhile, the remote master branch is still pointing to the old commit, so we should push it to remote again to make it sync
+
+# Access Github Using SSH Key #
+1. Generate a openSSH keypair with the command `ssh-keygen -t ed25519 -C "<github_email>"` in git bash, a file name is required and it will be "id_ed25519" if left blank
+2. Copy and paste the public key to github's ssh access settings
+3. Put the private key into the `<username>/.ssh/` folder
+4. Use `eval "$(ssh-agent -s)"` to see if the ssh agent is running in the background
+5. Use `ssh-add ~/.ssh/<private_key_filename>` to add the key to the agent
+6. Test the connection to server with `ssh -T git@github。com`
+7. Clone the repository with `git clone --branch <branch_name> --depth 1 <github ssh address>` in git bash
