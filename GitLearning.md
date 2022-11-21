@@ -136,6 +136,6 @@ echo "hello git" | shasum
 2. Copy and paste the public key to github's ssh access settings
 3. Put the private key into the `<username>/.ssh/` folder
 4. Use `eval "$(ssh-agent -s)"` to see if the ssh agent is running in the background
-5. Use `ssh-add ~/.ssh/<private_key_filename>` to add the key to the agent
+5. Use `ssh-add ~/.ssh/<private_key_filename>` to add the key to the agent, or add `IdentityFile ~/.ssh/<private/key/filename>` to `C:\Program Files\Git\etc\ssh\ssh_config`
 6. Test the connection to server with `ssh -T git@github。com`
 7. Clone the repository with `git clone --branch <branch_name> --depth 1 <github ssh address>` in git bash
