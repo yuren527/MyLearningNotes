@@ -139,3 +139,11 @@ echo "hello git" | shasum
 5. Use `ssh-add ~/.ssh/<private_key_filename>` to add the key to the agent, or add `IdentityFile ~/.ssh/<private/key/filename>` to `C:\Program Files\Git\etc\ssh\ssh_config`
 6. Test the connection to server with `ssh -T git@github。com`
 7. Clone the repository with `git clone --branch <branch_name> --depth 1 <github ssh address>` in git bash
+
+# Clone Several Specific Branches With Depth 1 # 
+Take UnrealEngine Repository as an example, clone the branch 5.1 and branch 4.27 to local with depth 1.
+1. Use the command `$ git clone git@github.com:EpicGames/UnrealEngine.git --branch 4.27 --depth 1` in GitBash to clone the specific branch with depth 1, this will dramatically reduce cloning time. After it finishes, the branch 4.27 is cloned successfully. 
+2. There may be some bugs that, if we directly fetch branch 5.1 now, the remote branch 5.1 will not show up when we use the command `git branch -r` to see the list of remote branches, and if input `git config --local -l`, we will find out that `remote.origin.fetch=+refs/heads/4.27:refs/remotes/origin/4.27` is in the config which is not supposed to be. To fix this, we need to delete the remote `origin` and re-add it to the remotes using `git remote remove origin` and `git remote add github git@github.com:EpicGames/UnrealEngine.git`(renaming remote to github meanwhile). And in the config we can see `remote.github.fetch=+refs/heads/*:refs/remotes/github/*` which is expected now.
+3. Again fetch the branch 4.27 and 5.1 by inputing `git fetch github 4.27 --depth 1` and `git fetch github 5.1 --depth 1`, we can see remote branches are correctly added to the remote branch list now(`git branch -r`).
+4. After fetching branch 5.1 from github, input `git branch 5.1 fetch_head` to create a new branch from the fetch_head.
+5. Last step, connect local branches to the remote branches by inputing `git branch --set-upstream-to=github/5.1` and the same to branch 4.27.
