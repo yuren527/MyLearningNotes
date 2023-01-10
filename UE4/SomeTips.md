@@ -212,3 +212,14 @@ T* GetResourceAsset(FName rowName) {
 }
 
 ```
+
+## Right way to create a server-only module
+- Make a new module with the `[ModuleName].cpp` including `IMPLEMENT_MODULE( FDefaultGameModuleImpl, [ModuleName]);`
+- In `.uproject` file, add the newly created module with `"WhitelistTargets/BlacklistTargets"` property set to `"Server/Client"`, include or exclude the module for compiling on the listed build targets. The available build targets are `Game`, `Server`, `Client`, `Editor`, and `Program`.
+- In primary module build rules, add the code below:
+```
+if (Target.bWithServerCode == true)
+    {
+        PublicDependencyModuleNames.Add("[ServerModuleName]");
+    }
+```
