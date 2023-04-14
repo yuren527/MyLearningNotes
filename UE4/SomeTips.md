@@ -43,10 +43,10 @@ For more information, see [Character Movement Component](https://docs.unrealengi
 void ClassName::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(ClassName, PropertyName);
+	DOREPLIFETIME(ThisClassName, PropertyName);
 }
 ``` 
-- remember to include `UnrealNetwork.h`, otherwise the Macro used in definition will not be recognized;
+- remember to include `Net/UnrealNetwork.h`, otherwise the Macro used in definition will not be recognized;
 
 # Use "Delay" in C++
 **Example:**  
