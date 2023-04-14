@@ -223,3 +223,18 @@ if (Target.bWithServerCode == true)
         PublicDependencyModuleNames.Add("[ServerModuleName]");
     }
 ```
+
+## Building target macros
+If you want to be able to tag any BP function as `DevelopmentOnly`; go to the editor preferences > Blueprint editor > Experimental > Allow explicit impure node disabling.  
+
+To declare custom made BP functions in code, add the following meta data; `UFUNCTION(..., meta=(DevelopmentOnly))`.  
+
+For C++ functions, simply wrap their implementation with the following;
+```
+void Foo()
+{
+#if !(UE_BUILD_SHIPPING || UE_BUILD_TEST)
+...
+#endif
+}
+```
