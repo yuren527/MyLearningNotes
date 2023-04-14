@@ -40,7 +40,7 @@ For more information, see [Character Movement Component](https://docs.unrealengi
 - Declare a function `void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;` in header file; 
 - in cpp file define the function added in header file: 
 ```C++
-void ClassName::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+void ClassName::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ClassName, PropertyName);
