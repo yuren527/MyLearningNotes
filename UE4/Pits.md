@@ -48,3 +48,6 @@ Use  `const FText&` instead of `FText`
 
 # Pit in Component field replicateion
 If want fields in component to be replicated, besides marking them as `UPROPERTY(Replicated)`, **DO NOT** forget to set the component replicated too `comp->SetIsReplicated(true)`, otherwise, the component itself is not replicated, so the fields are not replicated neither.
+
+# ByteProperty not initialized properly
+When sometimes startup the engine there comes a log error message saying "ByteProperty not initialized properly", this is due to uninitialized USTRUCT fields, assign the fields with a default value.
