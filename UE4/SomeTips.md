@@ -169,6 +169,8 @@ DECLARE_DELEGATE_OneParam(FTestSignature_2, float);
 
 - The receiving function should be marked `UFUNCTION()`;
 
+- If declaring a dynamic multicast delegate, make sure the .generated.h file is included.
+
 # Example for DataTable Asset Linker
 ```C++
 #include "CoreMinimal.h"
