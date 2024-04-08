@@ -12,3 +12,6 @@ Turn off `Occlusion Culling` in `Project Settings` to prevent objects culled une
 ## ComposeRotators
 When use `ComposeRotators` function, mind that the order of rotators passed to parameters matters, A is first applied, then B. Wrong order will lead to unexpected result.
 
+# 2024-04-08
+## TScriptInterface
+TScriptInterface is not explicitly designated to hold a strong reference to the object, so make sure to use it with `UPROPERTY()` to prevent it being gargage collected prematurely.
