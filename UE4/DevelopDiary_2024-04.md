@@ -15,7 +15,7 @@ When use `ComposeRotators` function, mind that the order of rotators passed to p
 ## TScriptInterface
 TScriptInterface is not explicitly designated to hold a strong reference to the object, so make sure to use it with `UPROPERTY()` to prevent it being gargage collected prematurely.
 
-## Casting between TSubclassOf<UObject> and TSubclassOf<SomeClass>
+## Casting between TSubclassOf\<UObject\> and TSubclassOf\<SomeClass\>
 Direct casting between `TSubclassOf` types for different classes is not directly supported because `TSubclassOf` is a template class designed to provide type safety around UClass pointers. However, you can achieve the desired behavior by checking if the `UClass` is indeed a subclass of the target type and then performing the assignment if the check passes.
 ```C++
 // Assume GenericClass is of type TSubclassOf<UObject>
