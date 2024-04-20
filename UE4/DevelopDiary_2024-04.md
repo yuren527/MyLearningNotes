@@ -36,4 +36,5 @@ else
 }
 ```
 
-## Be ware that if you rename a `BlueprintImplementableEvent` or `BlueprintNativeEvent` function in cpp, you should re-implement it in blueprint as well, cause the implementation in blueprint doesn't change its name automatically, it just become another custom event.
+## Issue about renaming `BlueprintImplementableEvent`
+Be ware that if you rename a `BlueprintImplementableEvent` or `BlueprintNativeEvent` function in cpp, you should re-implement it in blueprint as well, cause the implementation in blueprint doesn't change its name automatically, it just become another custom event.
