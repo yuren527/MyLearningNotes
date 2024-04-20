@@ -35,3 +35,5 @@ else
     // Handle the case where GenericClass is not a subclass of ABP_MyActor
 }
 ```
+
+## Be ware that if you rename a `BlueprintImplementableEvent` or `BlueprintNativeEvent` function in cpp, you should re-implement it in blueprint as well, cause the implementation in blueprint doesn't change its name automatically, it just become another custom event.
