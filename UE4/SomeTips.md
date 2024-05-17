@@ -240,3 +240,11 @@ void Foo()
 #endif
 }
 ```
+
+## Show SpriteComponent of C++ implemented actor in editor
+Blueprint classes derived from actor will have a sprite shown in scene, while C++ classes do not. 
+
+To make C++ implemented actors show the sprite for the ease of navigation and locating, there are several simple steps that should be followed in code.
+1. In construtor of the class, add `RootComponent->bVisualizeComponent = true;`, then a sprite at the location of the component would be displayed in editor.
+2. If the sprite is too small for some extensive scenes, add another line in constructor, `SpriteScale = 5.0f`, then the sprites would be 5 times larger.
+3. Finally, warp the code added above with `#if WITH_EDITORONLY_DATA` and `#endif` to let the compiler know that the code should only be compiled alone editor, otherwise, it wouldn't compile for game builds since the variables refered above is also wrapped with the macro, they just don't exist in the code of builds other than editor build.
