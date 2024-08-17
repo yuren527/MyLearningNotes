@@ -245,6 +245,11 @@ void Foo()
 Blueprint classes derived from actor will have a sprite shown in scene, while C++ classes do not. 
 
 To make C++ implemented actors show the sprite for the ease of navigation and locating, there are several simple steps that should be followed in code.
+
 1. In the constructor of the class, add `RootComponent->bVisualizeComponent = true;`, this will display a sprite at the location of the component in the editor.
 2. If the sprite is too small for some extensive scenes, add another line in constructor: `SpriteScale = 5.0f`, this change will make the sprites would be 5 times larger.
 3. Finally, wrap the code added above with `#if WITH_EDITORONLY_DATA` and `#endif` to let the compiler know that the code should only be compiled with editor builds. Otherwise, it wouldn't compile for game builds since the variables referred to above are also wrapped with the macro; they just don't exist in the code of builds other than editor builds.
+
+
+## Build UnrealEngine from source using VSCode
+After cloning UnrealEngine source code from github and running setup.bat, run `.\GenerateProjectFiles.bat -vscode' in powershell, it will generate the .workspace file for vscode, then we can use command 'code .' or double click the .workspace file to open the vscode and press ctrl+shift+B to bring up the command palette, find and select "UnrealEditor Win64 Development Build", it will start building the editor.
