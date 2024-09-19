@@ -253,3 +253,166 @@ To make C++ implemented actors show the sprite for the ease of navigation and lo
 
 ## Build UnrealEngine from source using VSCode
 After cloning UnrealEngine source code from github and running setup.bat, run `.\GenerateProjectFiles.bat -vscode' in powershell, it will generate the .workspace file for vscode, then we can use command 'code .' or double click the .workspace file to open the vscode and press ctrl+shift+B to bring up the command palette, find and select "UnrealEditor Win64 Development Build", it will start building the editor.
+
+
+## Differences between AddDynamic, AddStatic, AddUObject, AddUFunction
+In Unreal Engine, delegates are a powerful feature that allows you to bind functions to events. There are several ways to bind functions to delegates, each with its own use case and requirements. Here are the differences between `AddDynamic`, `AddStatic`, `AddUObject`, and `AddUFunction`:
+
+### `AddDynamic`
+
+- **Usage**: Used to bind a UFUNCTION to a delegate.
+- **Requirements**: The function must be marked with the [`UFUNCTION`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FC%3A%2FRepos%2FIntelliBlueForce%2FSource%2FIntelliBlueForce%2FUserInterface%2FUnitListItem_Deployment.h%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A33%2C%22character%22%3A1%7D%7D%5D%2C%229cba47ec-6c07-4b98-acc2-925a1b64b2b5%22%5D "Go to definition") macro.
+- **Example**:
+  ```cpp
+  MyDelegate.AddDynamic(this, &MyClass::MyFunction);
+  ```
+
+### `AddStatic`
+
+- **Usage**: Used to bind a static function to a delegate.
+- **Requirements**: The function must be static.
+- **Example**:
+  ```cpp
+  MyDelegate.AddStatic(&MyStaticFunction);
+  ```
+
+### `AddUObject`
+
+- **Usage**: Used to bind a member function of a UObject-derived class to a delegate.
+- **Requirements**: The function must be a member of a class derived from [`UObject`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FC%3A%2FRepos%2FIntelliBlueForce%2FSource%2FIntelliBlueForce%2FUserInterface%2FUnitListItem_Deployment.h%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A27%2C%22character%22%3A40%7D%7D%5D%2C%229cba47ec-6c07-4b98-acc2-925a1b64b2b5%22%5D "Go to definition").
+- **Example**:
+  ```cpp
+  MyDelegate.AddUObject(this, &MyClass::MyFunction);
+  ```
+
+### `AddUFunction`
+
+- **Usage**: Used to bind a UFUNCTION to a delegate by name.
+- **Requirements**: The function must be marked with the [`UFUNCTION`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FC%3A%2FRepos%2FIntelliBlueForce%2FSource%2FIntelliBlueForce%2FUserInterface%2FUnitListItem_Deployment.h%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A33%2C%22character%22%3A1%7D%7D%5D%2C%229cba47ec-6c07-4b98-acc2-925a1b64b2b5%22%5D "Go to definition") macro, and you need to provide the function name as a string.
+- **Example**:
+  ```cpp
+  MyDelegate.AddUFunction(this, FName("MyFunction"));
+  ```
+
+### Detailed Explanation
+
+1. **`AddDynamic`**:
+   - **Purpose**: Binds a UFUNCTION to a delegate.
+   - **Use Case**: When you need to bind a function that is marked with the [`UFUNCTION`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FC%3A%2FRepos%2FIntelliBlueForce%2FSource%2FIntelliBlueForce%2FUserInterface%2FUnitListItem_Deployment.h%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A33%2C%22character%22%3A1%7D%7D%5D%2C%229cba47ec-6c07-4b98-acc2-925a1b64b2b5%22%5D "Go to definition") macro, typically for Blueprint-exposed functions.
+   - **Example**:
+     ```cpp
+     DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMyDelegate);
+
+     UCLASS()
+     class MYPROJECT_API AMyActor : public AActor
+     {
+         GENERATED_BODY()
+
+     public:
+         FMyDelegate OnMyEvent;
+
+         UFUNCTION()
+         void MyFunction()
+         {
+             // Function implementation
+         }
+
+         void BindFunction()
+         {
+             OnMyEvent.AddDynamic(this, &AMyActor::MyFunction);
+         }
+     };
+     ```
+
+2. **`AddStatic`**:
+   - **Purpose**: Binds a static function to a delegate.
+   - **Use Case**: When you need to bind a function that does not belong to an instance of a class.
+   - **Example**:
+     ```cpp
+     DECLARE_DELEGATE(FMyDelegate);
+
+     void MyStaticFunction()
+     {
+         // Function implementation
+     }
+
+     void BindFunction()
+     {
+         FMyDelegate MyDelegate;
+         MyDelegate.AddStatic(&MyStaticFunction);
+     }
+     ```
+
+3. **`AddUObject`**:
+   - **Purpose**: Binds a member function of a UObject-derived class to a delegate.
+   - **Use Case**: When you need to bind a function that belongs to an instance of a class derived from [`UObject`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FC%3A%2FRepos%2FIntelliBlueForce%2FSource%2FIntelliBlueForce%2FUserInterface%2FUnitListItem_Deployment.h%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A27%2C%22character%22%3A40%7D%7D%5D%2C%229cba47ec-6c07-4b98-acc2-925a1b64b2b5%22%5D "Go to definition").
+   - **Example**:
+     ```cpp
+     DECLARE_DELEGATE(FMyDelegate);
+
+     UCLASS()
+     class MYPROJECT_API AMyActor : public AActor
+     {
+         GENERATED_BODY()
+
+     public:
+         FMyDelegate OnMyEvent;
+
+         void MyFunction()
+         {
+             // Function implementation
+         }
+
+         void BindFunction()
+         {
+             OnMyEvent.AddUObject(this, &AMyActor::MyFunction);
+         }
+     };
+     ```
+
+4. **`AddUFunction`**:
+   - **Purpose**: Binds a UFUNCTION to a delegate by name.
+   - **Use Case**: When you need to bind a function dynamically by its name, typically for more dynamic or reflective scenarios.
+   - **Example**:
+     ```cpp
+     DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMyDelegate);
+
+     UCLASS()
+     class MYPROJECT_API AMyActor : public AActor
+     {
+         GENERATED_BODY()
+
+     public:
+         FMyDelegate OnMyEvent;
+
+         UFUNCTION()
+         void MyFunction()
+         {
+             // Function implementation
+         }
+
+         void BindFunction()
+         {
+             OnMyEvent.AddUFunction(this, FName("MyFunction"));
+         }
+     };
+     ```
+
+### Summary
+
+- **`AddDynamic`**: Use for UFUNCTIONs, typically for Blueprint-exposed functions.
+- **`AddStatic`**: Use for static functions.
+- **`AddUObject`**: Use for member functions of [`UObject`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FC%3A%2FRepos%2FIntelliBlueForce%2FSource%2FIntelliBlueForce%2FUserInterface%2FUnitListItem_Deployment.h%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A27%2C%22character%22%3A40%7D%7D%5D%2C%229cba47ec-6c07-4b98-acc2-925a1b64b2b5%22%5D "Go to definition")-derived classes.
+- **`AddUFunction`**: Use for binding UFUNCTIONs by name, useful for dynamic or reflective scenarios.
+
+Choose the appropriate method based on your specific use case and the type of function you need to bind to the delegate.
+
+### Summary of Delegate Functions
+
+| Delegate Type       | Bind Function Types                          | Unbind Function Types       | Execute Function Types       |
+|---------------------|----------------------------------------------|-----------------------------|------------------------------|
+| Single-cast Delegate| BindDynamic, BindStatic, BindUObject, BindRaw| Unbind                      | Execute, ExecuteIfBound      |
+| Multi-cast Delegate | AddDynamic, AddStatic, AddUObject, AddRaw    | RemoveDynamic, Remove       | Broadcast                    |
+| Dynamic Delegate    | AddDynamic                                   | RemoveDynamic               | Broadcast                    |
+
+
