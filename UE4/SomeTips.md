@@ -415,4 +415,20 @@ Choose the appropriate method based on your specific use case and the type of fu
 | Multi-cast Delegate | AddDynamic, AddStatic, AddUObject, AddRaw    | RemoveDynamic, Remove       | Broadcast                    |
 | Dynamic Delegate    | AddDynamic                                   | RemoveDynamic               | Broadcast                    |
 
+# Forward rendering Issues
 
+## Forward rendering in UE5:
+- Is designed for performance-focused use cases like VR, mobile, or stylized visuals.
+- Uses simpler shading, fewer dynamic lights, and no GBuffer.
+- Supports MSAA (which deferred doesn’t).
+- Is not compatible with many advanced features, such as:
+	- Lumen
+	- Nanite
+	- Screen Space Global Illumination
+	- SSAO (replaced by simpler ambient models)
+
+## SM6 (Shader Model 6)
+SM6 is a DirectX 12+ feature offering:
+- Better HLSL support (wave intrinsics, etc.)
+- Potential for advanced material logic and compute shaders
+- Used by Lumen, Nanite, Virtual Shadow Maps, etc.
