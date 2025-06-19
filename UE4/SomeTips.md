@@ -12,8 +12,7 @@ this->SphereMesh->AttachTo(GetRootComponent());
 static ConstructorHelpers::FObjectFinder<UStaticMesh>SphereMeshAsset(TEXT("StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 this->SphereMesh->SetStaticMesh(SphereMeshAsset.Object);
 ```
-# Install Code Plugin to Source-built Engine
-In order to be able to use a code plugin from the Marketplace in an Engine that you built from source code, all you need to do is copy the plugin folder from the `Engine\Plugins\Marketplace` folder in your binary engine installation to the same folder in your source engine installation (you may need to create the Marketplace folder). You'll need to generate project files and build the project again, but you will then be able to open the project successfully. Once your project is open, you will probably see some errors in any Blueprints using nodes from the plugin. Just refresh these nodes and build the Blueprint again and the errors should disappear.
+
 # Convert between FString and std::string
 ```C++
 FString UE4Str = "UE4 C++"; 
@@ -81,76 +80,6 @@ Use `FString::Printf()`, Example:
 GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("%s %f"), *Msg, Value));
 ```
 
-# Custom config file
-To Add a custom config file, create a C++ class derived from `UDeveloperSettings`:
-```C++
-UCLASS(config = UDPConfig, DefaultConfig)
-class PTS_API UUDPSettings : public UDeveloperSettings
-{
-	GENERATED_BODY()
-public:
-	UPROPERTY(config, EditAnywhere)
-		FString ListenPort = FString("8888");
-	UPROPERTY(config, EditAnywhere)//listenPort=8888?senderIP=192.168.0.100?senderPort=9999
-		FString SenderIP = FString("192.168.0.100");
-	UPROPERTY(config, EditAnywhere)
-		FString SenderPort = FString("9999");
-	
-};
-```
-`config = configName`, determines the file name, if use `Game` or `Engine`, the values will then be inside the coresponding existing config files;  
-
-To Access the settings values, do like below:
-```C++
-const UUDPSettings* udpSettings = GetDefault<UUDPSettings>();
-	listenPort = udpSettings->ListenPort;
-	senderIP = udpSettings->SenderIP;
-	senderPort = udpSettings->SenderPort;
-```
-
-# Singleton in UE4
-**.h:**
-```C++
-UCLASS()
-class UFPPRequestLib : public UObject
-{
-	GENERATED_BODY()
-
-public:
-	static UFPPRequestLib* GetInstance();
-	
-protected:
-	virtual void BeginDestroy() override;
-}
-```
-**.cpp:**
-```C++
-static UFPPRequestLib* Singleton;
-
-UFPPRequestLib* UFPPRequestLib::GetInstance() {
-	if (Singleton == nullptr) {
-		Singleton = NewObject<UFPPRequestLib>();
-	}
-	return Singleton;
-}
-
-void UFPPRequestObject::BeginDestroy()
-{
-	Super::BeginDestroy();
-#if WITH_EDITOR
-	UE_LOG(LogTemp, Warning, TEXT("Begin destroy"));
-#endif
-	Singleton = nullptr;
-}
-```
-**In this case, we define a pointer to singleton of the class in cpp file; We can also define a private static field of the singleton inside the class, but then we have to initialize it in cpp file too, like below:**
-```C++
-//.Cpp
-UFPPRequestLib* UFPPRequestLib::Singleton = nullptr;
-```
-
-Be ware that, a UObject is added to the GC system, so it can be destroyed automaticaaly, but if it's collected by GC then the Singleton will point to somewhere unknown, so we should override the `BeginDestroy` function to make the Singleton pointing to nullptr;
-
 # Delegate declaration
 Example:
 ```C++
@@ -215,7 +144,7 @@ T* GetResourceAsset(FName rowName) {
 
 ```
 
-## Right way to create a server-only module
+# Right way to create a server-only module
 - Make a new module with the `[ModuleName].cpp` including `IMPLEMENT_MODULE( FDefaultGameModuleImpl, [ModuleName]);`
 - In `.uproject` file, add the newly created module with `"WhitelistTargets/BlacklistTargets"` property set to `"Server/Client"`, include or exclude the module for compiling on the listed build targets. The available build targets are `Game`, `Server`, `Client`, `Editor`, and `Program`.
 - In primary module build rules, add the code below:
@@ -226,7 +155,7 @@ if (Target.bWithServerCode == true)
     }
 ```
 
-## Building target macros
+# Building target macros
 If you want to be able to tag any BP function as `DevelopmentOnly`; go to the editor preferences > Blueprint editor > Experimental > Allow explicit impure node disabling.  
 
 To declare custom made BP functions in code, add the following meta data; `UFUNCTION(..., meta=(DevelopmentOnly))`.  
@@ -241,7 +170,7 @@ void Foo()
 }
 ```
 
-## Show SpriteComponent of C++ implemented actor in editor
+# Show SpriteComponent of C++ implemented actor in editor
 Blueprint classes derived from actor will have a sprite shown in scene, while C++ classes do not. 
 
 To make C++ implemented actors show the sprite for the ease of navigation and locating, there are several simple steps that should be followed in code.
@@ -251,7 +180,7 @@ To make C++ implemented actors show the sprite for the ease of navigation and lo
 3. Finally, wrap the code added above with `#if WITH_EDITORONLY_DATA` and `#endif` to let the compiler know that the code should only be compiled with editor builds. Otherwise, it wouldn't compile for game builds since the variables referred to above are also wrapped with the macro; they just don't exist in the code of builds other than editor builds.
 
 
-## Build UnrealEngine from source using VSCode
+# Build UnrealEngine from source using VSCode
 After cloning UnrealEngine source code from github and running setup.bat, run `.\GenerateProjectFiles.bat -vscode' in powershell, it will generate the .workspace file for vscode, then we can use command 'code .' or double click the .workspace file to open the vscode and press ctrl+shift+B to bring up the command palette, find and select "UnrealEditor Win64 Development Build", it will start building the editor.
 
 
