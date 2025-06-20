@@ -346,7 +346,7 @@ Choose the appropriate method based on your specific use case and the type of fu
 
 # Forward rendering Issues
 
-## Forward rendering in UE5:
+### Forward rendering in UE5:
 - Is designed for performance-focused use cases like VR, mobile, or stylized visuals.
 - Uses simpler shading, fewer dynamic lights, and no GBuffer.
 - Supports MSAA (which deferred doesn’t).
@@ -356,8 +356,14 @@ Choose the appropriate method based on your specific use case and the type of fu
 	- Screen Space Global Illumination
 	- SSAO (replaced by simpler ambient models)
 
-## SM6 (Shader Model 6)
+### SM6 (Shader Model 6)
 SM6 is a DirectX 12+ feature offering:
 - Better HLSL support (wave intrinsics, etc.)
 - Potential for advanced material logic and compute shaders
 - Used by Lumen, Nanite, Virtual Shadow Maps, etc.
+
+# C++ Toolchains error when generating project files
+
+1. If it comes an error saying some certain version of c++ toolchains is missing though required version is actually installed, this might be an error in `BuildConfiguration.xml` file  
+2. Find the file located in `C:\Users\<User Name>\AppData\Roaming\Unreal Engine\UnrealBuildTool`, and delete it  
+3. Problem solved
