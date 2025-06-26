@@ -71,6 +71,7 @@
 |1/2/3|Vertice/Edge/Face select|
 |Shift+1/2/3|Multiple select mode|
 |Alt+Left Mouse|Loop select|
+|Ctrl+Alt+Left Mouse|Ring select|
 |E|Extrude|
 |Ctrl+Right Mouse|Extrude to cursor|
 |Ctrl+R|Loop cut|
