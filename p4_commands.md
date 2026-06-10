@@ -314,4 +314,99 @@ alias p4check="p4 opened -a && p4 changes -s pending"
 alias p4safe="p4 reconcile //... && p4 opened"
 ```
 
+# 10. clean Perforce shelf workflow.
+
+**On Machine A**
+
+Create a changelist:
+
+```powershell
+p4 change
+```
+
+Move opened files into it:
+
+```powershell
+p4 reopen -c <cl_number> //...
+```
+
+Shelve it:
+
+```powershell
+p4 shelve -c <cl_number>
+```
+
+Files will still be opened locally. That is normal.
+
+Optionally clear Machine A after confirming the shelf exists:
+
+```powershell
+p4 revert -c <cl_number> //...
+```
+
+**On Machine B**
+
+Sync first:
+
+```powershell
+p4 sync //OrbitGame_Depot/OrbitGame/...
+```
+
+Create a local pending changelist:
+
+```powershell
+p4 change
+```
+
+Unshelve into it:
+
+```powershell
+p4 unshelve -s <shelf_cl_number> -c <new_local_cl_number>
+```
+
+Edit normally.
+
+Then either update/share your work as a shelf:
+
+```powershell
+p4 shelve -c <new_local_cl_number>
+```
+
+Or submit it:
+
+```powershell
+p4 submit -c <new_local_cl_number>
+```
+
+**If Files Land In Default**
+
+Create a changelist:
+
+```powershell
+p4 change
+```
+
+Move default-opened files into it:
+
+```powershell
+p4 reopen -c <cl_number> //...
+```
+
+Check state:
+
+```powershell
+p4 opened
+```
+
+In short:
+
+```text
+p4 change   = make a named bucket
+p4 reopen   = move opened files into that bucket
+p4 shelve   = save/share bucket to server without submitting
+p4 unshelve = restore shelf into a workspace
+p4 submit   = make it permanent in depot
+p4 revert   = remove local opened changes
+```
+
 ---
